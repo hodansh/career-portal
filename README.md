@@ -1,1 +1,1 @@
-# Career Portal: An online job search and application website
+# Career Portal: A website for recruiters and job seekers

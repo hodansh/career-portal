@@ -1,0 +1,11 @@
+version: '3.3'
+services:
+  website:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: career-portal-web
+    volumes:
+      - ./server:/var/www/html
+    ports:
+      - 8000:80
