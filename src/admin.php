@@ -25,19 +25,7 @@
         </form>
         <div id="commandLine">
             <?php
-            // $servername = "127.0.0.1:12000";
-            // $username = "qyc353_1";
-            // $password = "1234qwer";
-            // $dbname = "qyc353_1";
-
-            // // Create connection
-            // $conn = new mysqli($servername, $username, $password, $dbname);
-            // // Check connection
-            // if ($conn->connect_error) {
-            //     die("Connection failed: " . $conn->connect_error);
-            // }
-
-                $host = "database"; // service name from docker-compose.yml
+                $host = "database";
                 $user = "devuser";
                 $password = "devpass";
                 $db = "test_db";
