@@ -45,12 +45,19 @@ CREATE TABLE UserCategory
     FOREIGN KEY (EmployerId) REFERENCES Employer (EmployerId)
 );
 
+CREATE TABLE Employee
+(
+	EmployeeId INT NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (EmployeeId)
+);
+
 CREATE TABLE JobApplication
 (
     EmployeeId INT NOT NULL,
     JobId INT NOT NULL,
     Status VARCHAR(100),
     PRIMARY KEY (EmployeeId, JobId),
-    FOREIGN KEY (EmployeeId) REFERENCES Employer (EmployerId),
+    FOREIGN KEY (EmployeeId) REFERENCES Employee (EmployeeId),
     FOREIGN KEY (JobId) REFERENCES Job (JobId)
 );
+
