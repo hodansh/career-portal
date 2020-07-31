@@ -2,14 +2,22 @@ DROP DATABASE IF EXISTS CareerPortal;
 CREATE DATABASE CareerPortal;
 USE CareerPortal;
 
-CREATE TABLE UserCategory
+CREATE TABLE EmployeeCategory
 (
-    UserCategoryId INT NOT NULL AUTO_INCREMENT,
+    EmployeeCategoryId INT NOT NULL AUTO_INCREMENT,
     Status VARCHAR(100),
     MonthlyCharge VARCHAR(100),
     MaxJobs VARCHAR(100),
-    IsForEmployer BOOL,
-    PRIMARY KEY (UserCategoryId)
+    PRIMARY KEY (EmployeeCategoryId)
+);
+
+CREATE TABLE EmployerCategory
+(
+    EmployerCategoryId INT NOT NULL AUTO_INCREMENT,
+    Status VARCHAR(100),
+    MonthlyCharge VARCHAR(100),
+    MaxJobs VARCHAR(100),
+    PRIMARY KEY (EmployerCategoryId)
 );
 
 CREATE TABLE Employer
@@ -23,9 +31,9 @@ CREATE TABLE Employer
     PostalCode VARCHAR(6),
     City VARCHAR(100),
     Address VARCHAR(100),
-    UserCategoryId INT NOT NULL,
+    EmployerCategoryId INT NOT NULL,
     PRIMARY KEY (EmployerId),
-    FOREIGN KEY (UserCategoryId) REFERENCES UserCategory (UserCategoryId)
+    FOREIGN KEY (EmployerCategoryId) REFERENCES EmployerCategory (EmployerCategoryId)
 );
 
 CREATE TABLE Job
@@ -54,9 +62,9 @@ CREATE TABLE Employee
     PostalCode VARCHAR(6),
     City VARCHAR(100),
     Address VARCHAR(100),
-    UserCategoryId INT NOT NULL,
+    EmployeeCategoryId INT NOT NULL,
     PRIMARY KEY (EmployeeId),
-    FOREIGN KEY (UserCategoryId) REFERENCES UserCategory (UserCategoryId)
+    FOREIGN KEY (EmployeeCategoryId) REFERENCES EmployeeCategory (EmployeeCategoryId)
 );
 
 CREATE TABLE JobApplication
