@@ -63,3 +63,14 @@ CREATE TABLE JobApplication
     FOREIGN KEY (JobId) REFERENCES Job (JobId)
 );
 
+CREATE TABLE JobOffer
+(
+    EmployeeId INT NOT NULL,
+    JobId INT NOT NULL,
+    Status VARCHAR(100),
+    CreationDate date NOT NULL,
+    PRIMARY KEY (EmployeeId, JobId),
+    FOREIGN KEY (EmployeeId) REFERENCES Employee (EmployeeId),
+    FOREIGN KEY (JobId) REFERENCES Job (JobId)
+);
+
