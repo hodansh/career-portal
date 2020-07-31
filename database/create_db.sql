@@ -41,7 +41,7 @@ CREATE TABLE Job
     JobId INT NOT NULL AUTO_INCREMENT,
     Title VARCHAR(100) NOT NULL,
     Category SMALLINT NOT NULL,
-    JobDescription VARCHAR(100) NOT NULL,
+    JobDescription VARCHAR(250) NOT NULL,
     DatePosted DATE NOT NULL,
     NeededEmployees INT NOT NULL,
     AppliedEmployees INT NOT NULL,
