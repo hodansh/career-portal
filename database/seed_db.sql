@@ -1,9 +1,3 @@
--- INSERT INTO Job
-  --   (JobId, Title, Category, JobDescription, DatePosted, NeededEmployees, AppliedEmployees, AcceptedOffers, EmployerId)
--- VALUES
--- ()--;
-
-
 INSERT INTO EmployerCategory
     (Status, MonthlyCharge, MaxJobs)
 VALUES
@@ -46,5 +40,23 @@ VALUES ("InVOYlSt","RTE63MML2BG","elit@lacusAliquam.net","(950) 451-5515", "H8R5
 ("SiaBlEMy", "PJD75AZW9HD","orci.quis@congueaaliquet.org","(113) 286-2877","G0N5C9","Greenlaw","P.O. Box 918, 437 Lorem, Av.", 2),
 ("ICUriaNe","OJL48OKI2FM","adipiscing.Mauris@tinciduntcongueturpis.ca","(336) 873-0697","G0N5C9","Sparwood","P.O. Box 757, 3282 Diam Rd.", 3);
 
-SElECT *
-From Employee;
+INSERT INTO Job
+	(Title, Category, JobDescription, DatePosted, NeededEmployees, AppliedEmployees, AcceptedOffers, EmployerId)
+VALUES
+("Insurance Broker", 1, "Sell people insurance", "2020-02-02", 3, 0, 0, 1),-- category 1 : sales
+("Travel Agent", 1, "Sell people vacation packages", "2020-02-12", 5, 1, 1, 5),
+("Car Salesman", 1, "Sell people cars", "2020-03-01", 6, 2, 2, 4),
+("Accounting Professor", 2, "Teach accoutning to students. 20 years experience minimum", "2020-04-20", 1, 0, 0, 2),-- category 2 : eduation
+("Anatomy Professor", 2, "Teach anatomy to student. 15 years experience minimum", "2020-05-11", 2, 1, 0, 3),
+("Salad Maker", 3, "Must be able to toss salads. 30 years experience minimum. Competitive salary.", "2020-04-12", 5, 2, 1, 3),-- category 2 : food
+("Sandwich Maker", 3, "Must be able to make great sandwiches", "2020-05-21", 6, 22, 1, 5),
+("Cocktail Server", 3, "Must be able to serve cocktails. Potential make large amount of tips.", "2020-06-23", 2, 14, 1, 6),
+("Dishwasher", 3, "Requirements : 3 or more years of experience in washing dishes. Must be able to work weekends and weekdays, day and night.", "2020-04-30", 10, 55, 1, 4),
+("Fryline Attendant", 3, "Looking for fryline professionals, minimum of 5 years experience, competitive pay with benefits", "2020-05-25", 12, 33, 5, 5);
+
+
+select * from EmployerCategory;
+select * from EmployeeCategory;
+select * from Employer;
+select * from Job;
+SElECT * From Employee;
