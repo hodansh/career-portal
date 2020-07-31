@@ -17,10 +17,9 @@ VALUES
 	("Basic", 0, 0),
     ("Prime", 10, 5),
     ("Gold", 20, NULL);
-
     
 INSERT INTO Employer
-    (UserName, UserPassword, Email, Company, Telephone, PostalCode, City, Address, EmployerCategoryId)
+	(UserName, UserPassword, Email, Company, Telephone, PostalCode, City, Address, EmployerCategoryId)
 VALUES ("cARIdelS","PIN70ICY1AX","est@adui.net","Tempor Corporation","(607) 973-2300","J5B0R3","Dera Ismail Khan","Ap #812-3381 Ligula. Av." , 1),
 ("EDBuQuIp", "DEL33VHC5PT","Mauris.eu.turpis@sed.org","Dictum Cursus Nunc Industries","(787) 607-5124","S3N5J9","Heestert","467-7255 Lectus Street" , 2),
 ("RKowNtAt", "VVC00ZXW5RI","dictum.eleifend.nunc@Nullasemper.org","In Tempus Eu Industries","(492) 421-6534","M4W8A3","Holyhead","3488 Montes, Av.", 1),
@@ -30,8 +29,22 @@ VALUES ("cARIdelS","PIN70ICY1AX","est@adui.net","Tempor Corporation","(607) 973-
 ("tEgRamen", "FRD46PUN3IR","Donec.porttitor@eratin.ca","Sed Institute","(200) 498-5397","V2G3S1","Maria","P.O. Box 101, 6691 Phasellus Street", 2),
 ("ORNMoStA", "GAB42XZN6IP","est@ametrisusDonec.co.uk","Est Nunc Inc.","(258) 602-0597","G3H9J3","Warisoulx","P.O. Box 529, 9904 Dolor, Ave" , 1);
 
--- INSERT INTO Employee
-  --   (EmployeeId, UserName, UserPassword, Email, Telephone, PostalCode, City, Address, EmployeeCategoryId)
--- VALUES
--- ()
--- ;
+INSERT INTO Employee
+	(UserName, UserPassword, Email, Telephone, PostalCode, City, Address, EmployeeCategoryId)
+VALUES ("InVOYlSt","RTE63MML2BG","elit@lacusAliquam.net","(950) 451-5515", "H8R5P9" ,"Velaine-sur-Sambre","P.O. Box 846, 5504 Quisque Street", 1),
+("hOUTeTEs","TOY58FPK4BH","in@inceptoshymenaeos.edu","(118) 546-3737","L3V0S4","FlŽnu","Ap #855-6921 Nunc St.", 2),
+("rAVEntRo","YNH09ICY3JD","nec@faucibus.ca","(824) 986-3970", "E5T5T7","Wolkrange","256 Orci, Avenue", 3),
+("INUIdITe","PZD60LAB3GJ","eu.tellus.Phasellus@Nullamut.net","(808) 403-6752","E8B8E5","Hoeilaart","1317 Tincidunt Avenue", 1),
+("iNgSONjO","FOJ81MDI4DP","turpis.In.condimentum@laoreet.ca","(263) 809-3227","E6J9P4","Mirpur","P.O. Box 499, 1021 Arcu. Road", 1),
+("istersIF","COT14RBF3LR","ultrices@nullaIntincidunt.edu","(868) 294-0509","E6J2A4","Maizeret","P.O. Box 207, 4921 Pellentesque Rd.", 2),
+("seLiGUAd", "MKD16IAF8LI","sagittis@tellusjustosit.edu","(838) 226-0703","J2K4J1","Ipatinga","1360 A, St.", 3 ),
+("TSWAWOvE","GNC23GKH3ZU","at.nisi.Cum@aliquamarcu.com","(311) 937-6139","B1H1P7","Lorient","453-4390 Ante. St.", 1),
+("apERMaTe","LGR68TUH3VC","tortor@Phasellusdapibus.co.uk","(827) 615-8069","H8Y8M7","Parndorf","976-2969 Sem, St.", 2),
+("EoRtEbUl","HTI82ENW8UK","orci.in@Donecnibhenim.co.uk","(394) 368-4806","G8P7R6","San Pablo","922-9462 Libero. Av.", 3),
+("iONESupT","KCO10RXK9NG","mi.lorem.vehicula@tellusjusto.net","(980) 801-7416","E8C4Y8","Gwalior","Ap #977-4149 Egestas. Rd.", 3),
+("IngrOpEC","NNB69VVT9BE","Ut@hendreritaarcu.org","(348) 365-0308","G6G2V0","Helkijn","Ap #852-2963 Sit St.", 3),
+("SiaBlEMy", "PJD75AZW9HD","orci.quis@congueaaliquet.org","(113) 286-2877","G0N5C9","Greenlaw","P.O. Box 918, 437 Lorem, Av.", 2),
+("ICUriaNe","OJL48OKI2FM","adipiscing.Mauris@tinciduntcongueturpis.ca","(336) 873-0697","G0N5C9","Sparwood","P.O. Box 757, 3282 Diam Rd.", 3);
+
+SElECT *
+From Employee;
