@@ -26,9 +26,9 @@ CREATE TABLE Job
     Category VARCHAR(100),
     JobDescription VARCHAR(100),
     DatePosted DATE,
-    NeededEmployees INT NOT NULL,
-    AppliedEmployees INT NOT NULL,
-    AcceptedOffers INT NOT NULL,
+    NeededEmployees INT,
+    AppliedEmployees INT,
+    AcceptedOffers INT,
     EmployerId INT NOT NULL, 
     PRIMARY KEY (JobId),
     FOREIGN KEY (EmployerId) REFERENCES Employer (EmployerId)
