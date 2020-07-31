@@ -1,19 +1,20 @@
 <?php session_start(); // session will keep the desired info (on the server) when user is navigating to other pages.
 $_SESSION["userName"] = ""; //for example, when you register the user, you can use this variable to show his name on the welcome page (welcome USERNAME)
-include_once "formValidation.php";
-include_once "database_operations.php" //including an external php file, so the variables in this page will be accessible in that page and vice versa
+include_once "formValidation.php"; //including an external php file, so the variables in this page will be accessible in that page and vice versa
+include_once "database_operations.php"; // we include each file only once, because otherwise it will give errors and complain about multiple-times declarations 
 ?>
 
 <html>
 
 <head>
     <title>Welcome to Career-Portal</title>
-    <link href="./css/style.css" rel="stylesheet" type="text/css" />
+    <link href="./css/style.css" rel="stylesheet" type="text/css" /> <!-- link to css file -->
 </head>
 
 <body>
 
     <form name="signUpForm" method="post" action="">
+        <!-- we handle the form after submission in formVerification.php -->
         <div class="table">
             <div class="form-head">Sign up here:</div>
             <!--  ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
@@ -25,10 +26,6 @@ include_once "database_operations.php" //including an external php file, so the 
                     foreach ($errorMessage as $message) {
                         echo $message . "<br/>";
                     }
-                    if (isset($_POST['signUpFrom'])) {
-                    ?>
-                    <?php
-                    }
                     ?>
                 </div>
             <?php
@@ -39,6 +36,9 @@ include_once "database_operations.php" //including an external php file, so the 
                 <label>Username</label>
                 <div>
                     <input type="text" class="input_textbox" name="userName" value="<?php if (isset($_POST['userName'])) echo $_POST['userName']; ?>">
+                    <!-- the php code that was written after value= helps preserving user input for when a user put wrong input -->
+                    <!-- for each of the input textboxs, whatever name that we chose will be used to get the user input for that
+                    text box. for example we refere to $_POST['userName'] to get the value of user input for username -->
                 </div>
             </div>
 
@@ -55,9 +55,19 @@ include_once "database_operations.php" //including an external php file, so the 
             <div class="form_column">
                 <label>Please select your user preference:</label>
                 <div>
-                    <input type="radio" name="userType" <?php if (isset($_POST['userType']) && $$_POST['userType'] = "employer") echo "checked"; ?> value="employer">Employer
-                    <input type="radio" name="userType" <?php if (isset($_POST['userType']) && $_POST['userType'] == "applicant") echo "checked"; ?> value="applicant">Applicant
+                    <select name="MembershipType" id="membership_selection">
+                        <!-- This is a drop-down menu. $_POST['MembershipType] will give you the value of selected option after form submission. -->
+                        <option hidden disabled selected value> -- select an option -- </option>
+                        <option value="employer_prime">Employer Prime Membership (5 job posts/month for $50)</option>
+                        <option value="employer_gold">Employer Gold Membership (unlimited job posts/month for $100)</option>
 
+                        <option disabled="true" value="divider"></option> <!-- just to make a space between emloyer and applicant on the drop-down menu -->
+
+                        <option value="applicant_basic">Applicant Basic Membership (can only view jobs for free)</option>
+                        <option value="applicant_prime">Applicant Prime Membership (apply for 5 jobs for $10/month)</option>
+                        <option value="applicant_gold">Applicant Gold Membership (apply for any number of jobs for $20/month)</option>
+
+                    </select>
                 </div>
                 <div class="form_column">
                     <label>Email</label>
@@ -65,6 +75,39 @@ include_once "database_operations.php" //including an external php file, so the 
                         <input type="text" class="input_textbox" name="email" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>">
                     </div>
                 </div>
+                <div class="form_column">
+                    <label>Company (optional for applicants)</label>
+                    <div>
+                        <input type="text" class="input_textbox" name="company" value="<?php if (isset($_POST['company'])) echo $_POST['company']; ?>">
+                    </div>
+                </div>
+                <div class="form_column">
+                    <label>Telephone</label>
+                    <div>
+                        <input type="text" class="input_textbox" name="tel" value="<?php if (isset($_POST['tel'])) echo $_POST['tel']; ?>">
+                    </div>
+                </div>
+                <div class="form_column">
+                    <label>Postal Code</label>
+                    <div>
+                        <input type="text" class="input_textbox" name="postalCode" value="<?php if (isset($_POST['postalCode'])) echo $_POST['postalCode']; ?>">
+                    </div>
+                </div>
+                <div class="form_column">
+                    <label>City</label>
+                    <div>
+                        <input type="text" class="input_textbox" name="city" value="<?php if (isset($_POST['city'])) echo $_POST['city']; ?>">
+                    </div>
+                </div>
+                <div class="form_column">
+                    <label>Address</label>
+                    <div>
+                        <input type="text" class="input_textbox" name="address" value="<?php if (isset($_POST['address'])) echo $_POST['address']; ?>">
+                    </div>
+                </div>
+                </br>
+
+
 
                 <div>
                     <input type="submit" name="signUpFrom" value="signUp" class="btnRegister">
