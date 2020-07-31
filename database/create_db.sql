@@ -5,8 +5,8 @@ USE CareerPortal;
 CREATE TABLE EmployeeCategory
 (
     EmployeeCategoryId INT NOT NULL AUTO_INCREMENT,
-    Status SMALLINT NOT NULL,
-    MonthlyCharge VARCHAR(100) NOT NULL,
+    Status VARCHAR(100) NOT NULL,
+    MonthlyCharge DECIMAL NOT NULL,
     MaxJobs VARCHAR(100),
     PRIMARY KEY (EmployeeCategoryId)
 );
@@ -14,8 +14,8 @@ CREATE TABLE EmployeeCategory
 CREATE TABLE EmployerCategory
 (
     EmployerCategoryId INT NOT NULL AUTO_INCREMENT,
-    Status SMALLINT NOT NULL,
-    MonthlyCharge VARCHAR(100) NOT NULL,
+    Status VARCHAR(100) NOT NULL,
+    MonthlyCharge DECIMAL NOT NULL,
     MaxJobs VARCHAR(100),
     PRIMARY KEY (EmployerCategoryId)
 );

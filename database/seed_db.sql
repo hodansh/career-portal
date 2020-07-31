@@ -1,5 +1,12 @@
-INSERT INTO UserCategory
-    (UserCategoryId, Status, MonthlyCharge, MaxJobs, IsForEmployer)
+INSERT INTO EmployerCategory
+    (Status, MonthlyCharge, MaxJobs)
 VALUES
-    ("2151 Et Rd.,Pont-Saint-Martin,LB26 6AY,Greenland");
+    ("Prime", 50, 5),
+    ("Gold", 100, NULL);
 
+INSERT INTO EmployeeCategory
+    (Status, MonthlyCharge, MaxJobs)
+VALUES
+	("Basic", 0, 0),
+    ("Prime", 10, 5),
+    ("Gold", 20, NULL);
