@@ -2,20 +2,38 @@ DROP DATABASE IF EXISTS CareerPortal;
 CREATE DATABASE CareerPortal;
 USE CareerPortal;
 
+CREATE TABLE EmployeeCategory
+(
+    EmployeeCategoryId INT NOT NULL AUTO_INCREMENT,
+    Status VARCHAR(100),
+    MonthlyCharge VARCHAR(100),
+    MaxJobs VARCHAR(100),
+    PRIMARY KEY (EmployeeCategoryId)
+);
+
+CREATE TABLE EmployerCategory
+(
+    EmployerCategoryId INT NOT NULL AUTO_INCREMENT,
+    Status VARCHAR(100),
+    MonthlyCharge VARCHAR(100),
+    MaxJobs VARCHAR(100),
+    PRIMARY KEY (EmployerCategoryId)
+);
+
 CREATE TABLE Employer
 (
 	EmployerId INT NOT NULL AUTO_INCREMENT,
     UserName VARCHAR(100),
-	FirstName VARCHAR(100),
-    LastName VARCHAR(100),
     UserPassword VARCHAR(100),
     Email VARCHAR(100),
     Company VARCHAR(100),
     Telephone VARCHAR(12),
     PostalCode VARCHAR(6),
-    Province VARCHAR(2),
+    City VARCHAR(100),
     Address VARCHAR(100),
-    PRIMARY KEY (EmployerId)
+    EmployerCategoryId INT NOT NULL,
+    PRIMARY KEY (EmployerId),
+    FOREIGN KEY (EmployerCategoryId) REFERENCES EmployerCategory (EmployerCategoryId)
 );
 
 CREATE TABLE Job
@@ -33,24 +51,20 @@ CREATE TABLE Job
     FOREIGN KEY (EmployerId) REFERENCES Employer (EmployerId)
 );
 
-CREATE TABLE UserCategory
-(
-    UserCategoryId INT NOT NULL AUTO_INCREMENT,
-    Status VARCHAR(100),
-    MonthlyCharge VARCHAR(100),
-    MaxJobs VARCHAR(100),
-    IsForEmployer BOOL,
-    EmployerId INT NOT NULL,
-    EmployeeId INT NOT NULL,
-    PRIMARY KEY (UserCategoryId),
-    FOREIGN KEY (EmployerId) REFERENCES Employer (EmployerId),
-    FOREIGN KEY (EmployeeId) REFERENCES Employer (EmployeeId)
-);
-
 CREATE TABLE Employee
 (
 	EmployeeId INT NOT NULL AUTO_INCREMENT,
-    PRIMARY KEY (EmployeeId)
+    UserName VARCHAR(100),
+    UserPassword VARCHAR(100),
+    Email VARCHAR(100),
+    Company VARCHAR(100),
+    Telephone VARCHAR(12),
+    PostalCode VARCHAR(6),
+    City VARCHAR(100),
+    Address VARCHAR(100),
+    EmployeeCategoryId INT NOT NULL,
+    PRIMARY KEY (EmployeeId),
+    FOREIGN KEY (EmployeeCategoryId) REFERENCES EmployeeCategory (EmployeeCategoryId)
 );
 
 CREATE TABLE JobApplication
