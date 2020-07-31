@@ -15,7 +15,6 @@ CREATE TABLE Employer
     PostalCode VARCHAR(6),
     Province VARCHAR(2),
     Address VARCHAR(100),
-    JobId INT NOT NULL,
     PRIMARY KEY (EmployerId)
 );
 
@@ -26,9 +25,9 @@ CREATE TABLE Job
     Category VARCHAR(100),
     JobDescription VARCHAR(100),
     DatePosted DATE,
-    NeededEmployees INT,
-    AppliedEmployees INT,
-    AcceptedOffers INT,
+    NeededEmployees INT NOT NULL,
+    AppliedEmployees INT NOT NULL,
+    AcceptedOffers INT NOT NULL,
     EmployerId INT NOT NULL, 
     PRIMARY KEY (JobId),
     FOREIGN KEY (EmployerId) REFERENCES Employer (EmployerId)
@@ -40,9 +39,12 @@ CREATE TABLE UserCategory
     Status VARCHAR(100),
     MonthlyCharge VARCHAR(100),
     MaxJobs VARCHAR(100),
-    EmployerId INT NOT NULL, 
+    IsForEmployer BOOL,
+    EmployerId INT NOT NULL,
+    EmployeeId INT NOT NULL,
     PRIMARY KEY (UserCategoryId),
-    FOREIGN KEY (EmployerId) REFERENCES Employer (EmployerId)
+    FOREIGN KEY (EmployerId) REFERENCES Employer (EmployerId),
+    FOREIGN KEY (EmployeeId) REFERENCES Employer (EmployeeId)
 );
 
 CREATE TABLE Employee
