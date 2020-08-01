@@ -2,13 +2,13 @@ version: "3.3"
 services:
   website:
     build:
-      context: ./server
+      context: .
       dockerfile: Dockerfile
     container_name: career-portal-web
     depends_on:
       - database
     volumes:
-      - ./server:/var/www/html
+      - ./src:/var/www/html
     ports:
       - 8000:80
 
