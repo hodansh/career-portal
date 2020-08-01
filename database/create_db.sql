@@ -86,4 +86,3 @@ CREATE TABLE JobOffer
     FOREIGN KEY (EmployeeId) REFERENCES Employee (EmployeeId),
     FOREIGN KEY (JobId) REFERENCES Job (JobId)
 );
-
