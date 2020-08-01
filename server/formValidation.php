@@ -67,23 +67,17 @@ if ($valid == true) {
             $valid = false;
         }
     }
-    if (!isset($error_message)) { // check the number of characters for phone number (ntba)
+    if (!isset($error_message)) { // check the number of characters for postal code (ntba)
         if (strlen($_POST["postalCode"]) > 7 || strlen($_POST["postalCode"]) < 6) { //This is a server-side validation for correct email format from PHP 
             $errorMessage[] = "Invalid postal code!";
             $valid = false;
         }
     }
 
-    // If we reach here then every field was good and checked. now we need to see if a username/email was already taken
-    switch ($selected_type) {
-        case "employer":
-            $member_exists = EmployerExists($_POST['userName'], $_POST["email"]);
-            break;
-
-        case "applicant":
-            $member_exists = ApplicantExists($_POST['userName'], $_POST["email"]);
-            break;
-    }
+    // If we reach here then every field was good and checked. now we need to see if a username/email was already taken in any of the user tables.
+        
+    $member_exists = userExists($_POST['userName'], $_POST["email"]); 
+          
     if ($member_exists[0] == true) {
         $errorMessage[] = "This username is not available, please choose another username.";
         $valid = false;
