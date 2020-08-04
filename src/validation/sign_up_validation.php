@@ -1,5 +1,5 @@
 <?php
-include_once "database_operations.php";
+include_once "../database_operations.php";
 $valid = true; // at the end we will proceed to the next page only if valid is true
 $categoryId = ""; // this will be the last entry for categoryId of employer/employee
 $selected_type = ""; // this would be the membership type that was selected by userinput

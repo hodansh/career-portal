@@ -65,35 +65,78 @@ function AddEmployee($userName, $userPassword, $Email, $Telephone, $PostalCode, 
 function Authentication($userNameInput, $passwordInput)
 {
     $isMatched = false;
-    $sql_employer = "SELECT * FROM Employer WHERE UserName='$userNameInput'";
-    $sql_employee = "SELECT * FROM Employee WHERE UserName='$userNameInput'";
-    global $conn;
-    $userType = "";
-    if ($result = $conn->query($sql_employer)) {
-        if (mysqli_num_rows($result) > 0) { // if at least one username was matched
-            $row = $result->fetch_row(); // this will get one full row of database for Employer where username matched
-            if (strcasecmp($row[1],"$userNameInput") == 0 && $row[2] == "$passwordInput") { // strcasecmp will compare two strings case-insensitively, 
-                // example: strcamsecmp(ABC,abc) will return 0
-                $isMatched = True;
-                $userType= "employer";
-                $result->free_result(); // This will free the memory that was dedicated to preserve the result of the query
-                return [$isMatched, $userType, $row[1]];
-            }
+    $match_employer = findAnEmployer($userNameInput);
+    if ($match_employer!="not found"){
+        if (strcasecmp($match_employer[1],"$userNameInput") == 0 && $match_employer[2] == "$passwordInput") { // strcasecmp will compare two strings case-insensitively, 
+            // example: strcamsecmp(ABC,abc) will return 0
+            $isMatched = True;
+            $userType= "employer";
+            return [$isMatched, $userType, $match_employer[1]];
         }
     }
-    if ($result = $conn->query($sql_employee)) {
-        if (mysqli_num_rows($result) > 0) { // if at least one username was matched
-            $row = $result->fetch_row(); // this will get one full row of database for Employer where username matched
-            if (strcasecmp($row[1],"$userNameInput") == 0 && $row[2] == "$passwordInput") { // strcasecmp will compare two strings case-insensitively, 
-                // example: strcamsecmp(ABC,abc) will return 0
-                $isMatched = True;
-                $userType= "employee";
-                $result->free_result(); // This will free the memory that was dedicated to preserve the result of the query
-                return [$isMatched, $userType, $row[1]]; // we will need the usertype and $row[1] which is the exaxt username in our database for saving in the session
-            }
+    $match_employee = findAnEmployee($userNameInput);
+    if ($match_employee!="not found"){
+        if (strcasecmp($match_employee[1],"$userNameInput") == 0 && $match_employee[2] == "$passwordInput") { // strcasecmp will compare two strings case-insensitively, 
+            // example: strcamsecmp(ABC,abc) will return 0
+            $isMatched = True;
+            $userType= "employee";
+            return [$isMatched, $userType, $match_employee[1]];
         }
     }
     return [false, "", ""]; // This is where the username or password was not a match to the database
+}
+
+function findAnEmployer($userNameInput){
+    $sql_employer = "SELECT * FROM Employer WHERE UserName='$userNameInput'";
+    global $conn;
+    if ($result = $conn->query($sql_employer)) {
+        if (mysqli_num_rows($result) > 0) { // if at least one username was matched
+            $row = $result->fetch_row(); // this will get one full row of database for Employer where username matched
+        $result -> free_result(); // This will free the memory that was dedicated to preserve the result of the query
+            return $row;
+        }
+return "not found!";
+
+}
+}
+
+function findAnEmployee($userNameInput){
+    $sql_employee = "SELECT * FROM Employee WHERE UserName='$userNameInput'";
+    global $conn;
+    if ($result = $conn->query($sql_employee)) {
+        if (mysqli_num_rows($result) > 0) { // if at least one username was matched
+            $row = $result->fetch_row(); // this will get one full row of database for Employee where username matched
+        $result -> free_result(); // This will free the memory that was dedicated to preserve the result of the query
+            return $row;
+        }
+return "not found!";
+}
+}
+
+function findAll($tableName){
+    global $conn;
+    $sql = "SELECT * FROM '$tableName'";
+    if ($result = $conn->query($sql)) {
+        if (mysqli_num_rows($result) > 0) {
+            $row = $result->fetch_row(); 
+        $result -> free_result(); 
+            return $row;
+        }
+}
+}
+
+function findUserByCriterion($searchString, $criterion, $tableName){
+    global $conn;
+    $sql = "SELECT * FROM '$tableName' WHERE '$criterion'='$searchString' ORDERED BY '$criterion'";
+      
+    if ($result = $conn->query($sql)) { 
+        if (mysqli_num_rows($result) > 0) { // if at least one username was matched
+            $rows = $result->fetch_all(); // this will get one full row of database for Employee where username matched
+            $result -> free_result(); // This will free the memory that was dedicated to preserve the result of the query
+            return $tableName." ".$rows.".\n";
+        }
+        return "No results found for an $tableName with $criterion equal $searchString!";
+}
 }
 
 function connection_close($conn) // This can be used to close the connection, not the best approach! so we will have to figure out about the best way of doing it.

@@ -12,18 +12,11 @@ foreach ($_POST as $key => $value) { // if any of the fields are empty the user 
 }
 
 if ($valid == true) {
-    if (strcasecmp($_POST['userName'], 'admin')==0 && $_POST['password'] == 'admin') { // if this is admin
-        $_SESSION["userName"] = "admin";
-        echo "<script type='text/javascript'>window.location.href = '../dashboards/admin_dashboard.php?idh={$idh}&ajax_show=experience';</script>"; //navigate to dashboard    
-    } else {
-        // If we reach here then both username and password fields were filled out and are not empty.
-        $AuthenticationResult = Authentication($_POST['userName'], $_POST['password']); // AuthenticationResult will be an array with 3 elements, see database_operations 
-        if ($AuthenticationResult[0] == false) {
-            $SignInErrorMessage[] = "We couldn't match your Username/Password! Please check...";
-            $valid = false;
-        }
-    }
+    if(isset($_POST['searchCriterion'])&& isset($_POST['searchString'])){
+$search_results_employers = findUserByCriterion($_POST['searchCriterion'],"EMPLOYER");
+$search_results_employees = findUserByCriterion($_POST['searchCriterion'],"EMPLOYEE");    
 }
+
 // -------------------------------------------------------------------------------------------------------------
 else { // this means one or more of the fields are empty. (valid is not true)
     $SignInErrorMessage[] = "All fields are required.";
