@@ -61,11 +61,11 @@ include_once "database_operations.php"; // we include each file only once, becau
                         <option value="employer_prime">Employer Prime Membership (5 job posts/month for $50)</option>
                         <option value="employer_gold">Employer Gold Membership (unlimited job posts/month for $100)</option>
 
-                        <option disabled="true" value="divider"></option> <!-- just to make a space between emloyer and applicant on the drop-down menu -->
+                        <option disabled="true" value="divider"></option> <!-- just to make a space between emloyer and employee on the drop-down menu -->
 
-                        <option value="applicant_basic">Applicant Basic Membership (can only view jobs for free)</option>
-                        <option value="applicant_prime">Applicant Prime Membership (apply for 5 jobs for $10/month)</option>
-                        <option value="applicant_gold">Applicant Gold Membership (apply for any number of jobs for $20/month)</option>
+                        <option value="employee_basic">employee Basic Membership (can only view jobs for free)</option>
+                        <option value="employee_prime">employee Prime Membership (apply for 5 jobs for $10/month)</option>
+                        <option value="employee_gold">employee Gold Membership (apply for any number of jobs for $20/month)</option>
 
                     </select>
                 </div>
@@ -76,7 +76,7 @@ include_once "database_operations.php"; // we include each file only once, becau
                     </div>
                 </div>
                 <div class="form_column">
-                    <label>Company (optional for applicants)</label>
+                    <label>Company (optional for employees)</label>
                     <div>
                         <input type="text" class="input_textbox" name="company" value="<?php if (isset($_POST['company'])) echo $_POST['company']; ?>">
                     </div>
