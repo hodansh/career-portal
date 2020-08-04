@@ -89,16 +89,12 @@ function Authentication($userNameInput, $passwordInput)
                 $isMatched = True;
                 $userType= "employee";
                 $result->free_result(); // This will free the memory that was dedicated to preserve the result of the query
-                return [$isMatched, $userType, $row[1]]; //we will need the usertype and $row[1] which is the exaxt username in our database for saving in the session
-
+                return [$isMatched, $userType, $row[1]]; // we will need the usertype and $row[1] which is the exaxt username in our database for saving in the session
             }
         }
     }
     return [false, "", ""]; // This is where the username or password was not a match to the database
-    
-    
 }
-
 
 function connection_close($conn) // This can be used to close the connection, not the best approach! so we will have to figure out about the best way of doing it.
 {

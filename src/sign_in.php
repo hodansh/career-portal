@@ -1,7 +1,7 @@
 <?php session_start(); // session will keep the desired info (on the server) when user is navigating to other pages.
 $_SESSION["userName"] = ""; //for example, when you register the user, you can use this variable to show his name on the welcome page (welcome USERNAME)
 include_once "database_operations.php";
-include_once "signInValidation.php"; // we include each file only once, because otherwise it will give errors and complain about multiple-times declarations 
+include_once "./validation/sign_in_validation.php"; // we include each file only once, because otherwise it will give errors and complain about multiple-times declarations 
 ?>
 
 <html>
@@ -18,7 +18,7 @@ include_once "signInValidation.php"; // we include each file only once, because 
         <div class="table">
             <div class="form-head">Sign in here:</div>
             <!--  ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-            <?php // to show error messages about bad inputs, we would have to show them on top of the page. Error messages are created in formValidation page
+            <?php // to show error messages about bad inputs, we would have to show them on top of the page. Error messages are created in sign_up_validation page
             if (!empty($SignInErrorMessage) && is_array($SignInErrorMessage) && isset($_POST["signInFrom"])) {
             ?>
                 <div class="error-message">
@@ -47,9 +47,14 @@ include_once "signInValidation.php"; // we include each file only once, because 
                     
 
                 <div>
-                    <input type="submit" name="signInFrom" value="signIn" class="btnRegister">
+                    <input type="submit" name="signInFrom" value="Sign in" class="btnRegister">
                 </div>
             </div>
+            <div class="form_column" style="text-align: center;">
+        
+            <a href="index.php" style="font-weight: 600;">Create a new account</a>
+        
+    </div>
         </div>
     </form>
 

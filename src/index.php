@@ -1,6 +1,6 @@
 <?php session_start(); // session will keep the desired info (on the server) when user is navigating to other pages.
 $_SESSION["userName"] = ""; //for example, when you register the user, you can use this variable to show his name on the welcome page (welcome USERNAME)
-include_once "formValidation.php"; //including an external php file, so the variables in this page will be accessible in that page and vice versa
+include_once "./validation/sign_up_validation.php"; //including an external php file, so the variables in this page will be accessible in that page and vice versa
 include_once "database_operations.php"; // we include each file only once, because otherwise it will give errors and complain about multiple-times declarations 
 ?>
 
@@ -119,7 +119,7 @@ include_once "database_operations.php"; // we include each file only once, becau
 
     <div class="form_column" style="text-align: center;">
         <p>Already on Career-Portal? &nbsp;&nbsp;
-            <a href="signin.php">Sign in</a>
+            <a href="sign_in.php">Sign in</a>
         </p>
     </div>
 
