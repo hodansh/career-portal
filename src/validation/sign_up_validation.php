@@ -78,7 +78,8 @@ if ($valid == true) {
         
     $member_exists = userExists($_POST['userName'], $_POST["email"]); 
           
-    if ($member_exists[0] == true) {
+    if ($member_exists[0] == true or strcasecmp($_POST['userName'], "admin")){
+         // we will not allow any user to create admin account (username = admin, pass = admin is the only admin)
         $errorMessage[] = "This username is not available, please choose another username.";
         $valid = false;
     }
@@ -86,6 +87,7 @@ if ($valid == true) {
         $errorMessage[] = "This email is not available, please use another email.";
         $valid = false;
     }
+
 }
 // -------------------------------------------------------------------------------------------------------------
 else { // this means one or more of the fields are empty. (valid is not true)
@@ -99,11 +101,11 @@ if ($valid == true) {
     switch ($selected_type) {
         case "employer":
             AddEmployer($_POST["userName"], $_POST["password"], $_POST["email"], $_POST["company"], $_POST["tel"], $_POST["postalCode"], $_POST["city"], $_POST["address"], $categoryId);
-            echo "<script type='text/javascript'>window.location.href = 'employer_dashboard.php?idh={$idh}&ajax_show=experience';</script>"; //navigate to dashboard    
+            echo "<script type='text/javascript'>window.location.href = '../dashboards/employer_dashboard.php?idh={$idh}&ajax_show=experience';</script>"; //navigate to dashboard    
             break;
         case "employee":
             AddEmployee($_POST["userName"], $_POST["password"], $_POST["email"], $_POST["tel"], $_POST["postalCode"], $_POST["city"], $_POST["address"], $categoryId);
-            echo "<script type='text/javascript'>window.location.href = 'employee_dashboard.php?idh={$idh}&ajax_show=experience';</script>";    //navigate to dashboard
+            echo "<script type='text/javascript'>window.location.href = '../dashboards/employee_dashboard.php?idh={$idh}&ajax_show=experience';</script>";    //navigate to dashboard
             break;
     }
 }
