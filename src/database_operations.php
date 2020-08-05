@@ -142,6 +142,25 @@ function findUserByCriterion($searchString, $criterion, $tableName)
     return "No results found for an $tableName with $criterion: $searchString!";
 }
 
+function deleteUser($userNameInput)
+{
+    global $conn;
+    $message = "We could not find any user with UserName= $userNameInput in any of the tables";
+    if (findAnEmployer($userNameInput) != "not found!") {
+        $sql = "Delete FROM Employer WHERE UserName='$userNameInput';";
+        if ($result = $conn->query($sql)) {
+            $message = "$userNameInput was successfully deleted from Employers.";
+        }
+    } else  
+if (findAnEmployee($userNameInput) != "not found!") {
+        $sql = "Delete FROM Employee WHERE UserName='$userNameInput';";
+        if ($result = $conn->query($sql)) {
+            $message = "$userNameInput was successfully deleted from Employees.";
+        }
+    }
+    return $message;
+}
+
 
 function connection_close($conn) // This can be used to close the connection, not the best approach! so we will have to figure out about the best way of doing it.
 {

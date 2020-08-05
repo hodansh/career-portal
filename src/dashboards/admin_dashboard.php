@@ -1,6 +1,7 @@
 <?php
 session_start();
 include_once "../validation/admin_search_validation.php";
+include_once "../database_operations.php";
 ?>
 <html lang="en">
 
@@ -70,89 +71,74 @@ include_once "../validation/admin_search_validation.php";
             $res_employees = $_SESSION["search_results_employees"];
             if (is_array($res_employers)) {
 
-                echo "<div class='form-head'>Search Results in Employers:</div><br>
-                <style> 
-                table, th, td{
-                  padding: 10px;
-                  border: 1.5px solid green;
-                  border-collapse: collapse;
-                  margin-left:auto;
-                  margin-right:auto;
-                }
-              </style>
+                echo "<div class='form-head2'>Search Results in Employers:</div><br>
+              
                 <table> <tr>
                     <td styles>UserName</td>
                     <td>Password</td>
-       <td>Email</td>
-       <td>Company</td>
-       <td>Telephone</td>
-       <td>PostalCode</td>
-       <td>City</td>
-       <td>Address</td>
-       <td>CategoryID</td>      
-       
-     </tr><tr>";
+                    <td>Email</td>
+                    <td>Company</td>
+                    <td>Telephone</td>
+                    <td>PostalCode</td>
+                    <td>City</td>
+                    <td>Address</td>
+                    <td>CategoryID</td>     
+                        
+                </tr><tr>";
+                
                 foreach ($res_employers as $key => $value) {
+                
                     if ($key != "EmployerId") {
                         echo "<td> $value";
-                    }
-                }
+                        }
+                                        }
+
+                
                 echo "</tr>
-   </table>";
-            } else{
-                echo "<h3 class='form-head'>$search_results_employers</h3><br>"; // Because no results found in employers.
+                </table>";
+                 } else{
+                echo "<h3 class='form-head2'>$search_results_employers</h3><br>"; // Because no results found in employers.
             }
             if (is_array($res_employees)) {
-
-                echo "<div class='form-head'><br>Search Results in Employees:</div><br>
-                <style> 
-                table, th, td{
-                  padding: 10px;
-                  border: 1.5px solid green;
-                  border-collapse: collapse;
-                  margin-left:auto;
-                  margin-right:auto;
-                }
-              </style>
+                
+                echo "<div class='form-head2'><br>Search Results in Employees:</div><br>
                 <table> <tr>
-                    <td styles>UserName</td>
-                    <td>Password</td>
-       <td>Email</td>
-       <td>Telephone</td>
-       <td>PostalCode</td>
-       <td>City</td>
-       <td>Address</td>
-       <td>CategoryID</td>      
-       
-     </tr><tr>";
+                <td styles>UserName</td>
+                <td>Password</td>
+                <td>Email</td>
+                <td>Telephone</td>
+                <td>PostalCode</td>
+                <td>City</td>
+                <td>Address</td>
+                <td>CategoryID</td>      
+                </tr><tr>";
                 foreach ($res_employees as $key => $value) {
                     if ($key != "EmployeeId") {
                         echo "<td> $value";
                     }
                 }
                 echo "</tr>
-    </table>";
-            }
-            else{
-                echo "<h3 class='form-head'>$search_results_employees</h3><br>"; // Because no results found in employees.  
+                </table>";
+            } else {
+                echo "<h3 class='form-head2'>$search_results_employees</h3><br>"; // Because no results found in employees.  
             }
         }
-        
-       
-        // echo $_SESSION["search_results_employees"];
-
-        //  $search_res = $_SESSION["search_results_employers"];
-        //  foreach ($search_res as $row){
-        //      echo "<p> $row </p>";
-
-
-
-
-
 
 
         ?>
     </div>
+    <form name="deleteUser" method="post" action="">
+    <div class="table">
+                <label style="font-weight:600 ;">Enter the username of the user you want to delete:</label>
+                <div>
+                <input type="text" class="input_textbox" name="userNameToBeDeleted" value="<?php if (isset($_POST['userNameToBeDeleted'])) echo $_POST['userNameToBeDeleted']; ?>">
+                </div>
+                <div>
+                    <input type="submit" name="deleteByUserName" value="Delete" class="btnRegister">
+                </div>
+    </div>
+    </form>
+
 
 
 </body>

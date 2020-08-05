@@ -9,7 +9,7 @@ $SignInErrorMessage = array();
 
 foreach ($_POST as $key => $value) { // if any of the fields are empty the user has to fix it. 
 
-    if (empty($_POST[$key])) {
+    if (empty($_POST[$key]) && $key!="deleteByUserName") {
         $valid = false;
     }
 }
@@ -31,4 +31,6 @@ if ($valid == true) {
 else { // this means one or more of the fields are empty. (valid is not true)
     $AdminErrorMessage[] = "All fields are required.";
 }
-
+if(isset($_POST["deleteByUserName"])){
+    echo deleteUser($_POST["userNameToBeDeleted"]);
+}
