@@ -66,78 +66,82 @@ function Authentication($userNameInput, $passwordInput)
 {
     $isMatched = false;
     $match_employer = findAnEmployer($userNameInput);
-    if ($match_employer!="not found"){
-        if (strcasecmp($match_employer[1],"$userNameInput") == 0 && $match_employer[2] == "$passwordInput") { // strcasecmp will compare two strings case-insensitively, 
+    if ($match_employer != "not found") {
+        if (strcasecmp($match_employer[1], "$userNameInput") == 0 && $match_employer[2] == "$passwordInput") { // strcasecmp will compare two strings case-insensitively, 
             // example: strcamsecmp(ABC,abc) will return 0
             $isMatched = True;
-            $userType= "employer";
+            $userType = "employer";
             return [$isMatched, $userType, $match_employer[1]];
         }
     }
     $match_employee = findAnEmployee($userNameInput);
-    if ($match_employee!="not found"){
-        if (strcasecmp($match_employee[1],"$userNameInput") == 0 && $match_employee[2] == "$passwordInput") { // strcasecmp will compare two strings case-insensitively, 
+    if ($match_employee != "not found") {
+        if (strcasecmp($match_employee[1], "$userNameInput") == 0 && $match_employee[2] == "$passwordInput") { // strcasecmp will compare two strings case-insensitively, 
             // example: strcamsecmp(ABC,abc) will return 0
             $isMatched = True;
-            $userType= "employee";
+            $userType = "employee";
             return [$isMatched, $userType, $match_employee[1]];
         }
     }
     return [false, "", ""]; // This is where the username or password was not a match to the database
 }
 
-function findAnEmployer($userNameInput){
+function findAnEmployer($userNameInput)
+{
     $sql_employer = "SELECT * FROM Employer WHERE UserName='$userNameInput'";
     global $conn;
     if ($result = $conn->query($sql_employer)) {
         if (mysqli_num_rows($result) > 0) { // if at least one username was matched
             $row = $result->fetch_row(); // this will get one full row of database for Employer where username matched
-        $result -> free_result(); // This will free the memory that was dedicated to preserve the result of the query
+            $result->free_result(); // This will free the memory that was dedicated to preserve the result of the query
             return $row;
         }
-return "not found!";
-
+        return "not found!";
+    }
 }
-}
 
-function findAnEmployee($userNameInput){
+function findAnEmployee($userNameInput)
+{
     $sql_employee = "SELECT * FROM Employee WHERE UserName='$userNameInput'";
     global $conn;
     if ($result = $conn->query($sql_employee)) {
         if (mysqli_num_rows($result) > 0) { // if at least one username was matched
             $row = $result->fetch_row(); // this will get one full row of database for Employee where username matched
-        $result -> free_result(); // This will free the memory that was dedicated to preserve the result of the query
+            $result->free_result(); // This will free the memory that was dedicated to preserve the result of the query
             return $row;
         }
-return "not found!";
-}
+        return "not found!";
+    }
 }
 
-function findAll($tableName){
+function findAll($tableName)
+{
     global $conn;
     $sql = "SELECT * FROM '$tableName'";
     if ($result = $conn->query($sql)) {
         if (mysqli_num_rows($result) > 0) {
-            $row = $result->fetch_row(); 
-        $result -> free_result(); 
+            $row = $result->fetch_row();
+            $result->free_result();
             return $row;
         }
-}
+    }
 }
 
-function findUserByCriterion($searchString, $criterion, $tableName){
+function findUserByCriterion($searchString, $criterion, $tableName)
+{
     global $conn;
-    $sql = "SELECT * FROM '$tableName' WHERE '$criterion'='$searchString' ORDERED BY '$criterion'";
-      
-    if ($result = $conn->query($sql)) { 
+    $sql = "SELECT * FROM $tableName WHERE $criterion=\"$searchString\" ORDER BY $criterion;";
+    if ($result = $conn->query($sql)) {
         if (mysqli_num_rows($result) > 0) { // if at least one username was matched
-            $rows = $result->fetch_all(); // this will get one full row of database for Employee where username matched
-            $result -> free_result(); // This will free the memory that was dedicated to preserve the result of the query
-            return $tableName." ".$rows.".\n";
+            $resultArray = mysqli_fetch_assoc($result);
+            // $result->fetch_all(MYSQLI_ASSOC); // this will all rows of database where username matched 
+            $result->free_result(); // This will free the memory that was dedicated to preserve the result of the query
+            return $resultArray;
         }
-        return "No results found for an $tableName with $criterion equal $searchString!";
+    }
+    return "No results found for an $tableName with $criterion: $searchString!";
 }
-}
+
 
 function connection_close($conn) // This can be used to close the connection, not the best approach! so we will have to figure out about the best way of doing it.
 {

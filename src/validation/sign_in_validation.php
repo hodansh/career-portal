@@ -1,5 +1,5 @@
 <?php
-include_once "../database_operations.php";
+include_once "database_operations.php";
 $valid = true; // at the end we will proceed to the next page only if valid is true
 
 $SignInErrorMessage = array();
