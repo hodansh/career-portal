@@ -13,7 +13,7 @@ include_once "database_operations.php"; // we include each file only once, becau
 
 <head>
     <title>Welcome to Career-Portal</title>
-    <link href="./css/style.css" rel="stylesheet" type="text/css" /> <!-- link to css file -->
+    <link href="./css/style.css?version=52" rel="stylesheet" type="text/css" /> <!-- link to css file -->
 </head>
 
 <body>
@@ -37,7 +37,7 @@ include_once "database_operations.php"; // we include each file only once, becau
             }
             ?>
             <!--  ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-            <div class="form_column">
+            <div >
                 <label>Username</label>
                 <div>
                     <input type="text" class="input_textbox" name="userName" value="<?php if (isset($_POST['userName'])) echo $_POST['userName']; ?>">
@@ -47,17 +47,17 @@ include_once "database_operations.php"; // we include each file only once, becau
                 </div>
             </div>
 
-            <div class="form_column">
+            <div >
                 <label>Password</label>
                 <div><input type="password" class="input_textbox" name="password" value=""></div>
             </div>
-            <div class="form_column">
+            <div >
                 <label>Confirm Password</label>
                 <div>
                     <input type="password" class="input_textbox" name="confirm_password" value="">
                 </div>
             </div>
-            <div class="form_column">
+            <div >
                 <label>Please select your user preference:</label>
                 <div>
                     <select name="MembershipType" id="membership_selection">
@@ -74,37 +74,37 @@ include_once "database_operations.php"; // we include each file only once, becau
 
                     </select>
                 </div>
-                <div class="form_column">
+                <div >
                     <label>Email</label>
                     <div>
                         <input type="text" class="input_textbox" name="email" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>">
                     </div>
                 </div>
-                <div class="form_column">
+                <div >
                     <label>Company (optional for employees)</label>
                     <div>
                         <input type="text" class="input_textbox" name="company" value="<?php if (isset($_POST['company'])) echo $_POST['company']; ?>">
                     </div>
                 </div>
-                <div class="form_column">
+                <div >
                     <label>Telephone</label>
                     <div>
                         <input type="text" class="input_textbox" name="tel" value="<?php if (isset($_POST['tel'])) echo $_POST['tel']; ?>">
                     </div>
                 </div>
-                <div class="form_column">
+                <div >
                     <label>Postal Code</label>
                     <div>
                         <input type="text" class="input_textbox" name="postalCode" value="<?php if (isset($_POST['postalCode'])) echo $_POST['postalCode']; ?>">
                     </div>
                 </div>
-                <div class="form_column">
+                <div >
                     <label>City</label>
                     <div>
                         <input type="text" class="input_textbox" name="city" value="<?php if (isset($_POST['city'])) echo $_POST['city']; ?>">
                     </div>
                 </div>
-                <div class="form_column">
+                <div >
                     <label>Address</label>
                     <div>
                         <input type="text" class="input_textbox" name="address" value="<?php if (isset($_POST['address'])) echo $_POST['address']; ?>">
@@ -122,7 +122,7 @@ include_once "database_operations.php"; // we include each file only once, becau
     </form>
 
 
-    <div class="form_column" style="text-align: center;">
+    <div  style="text-align: center;">
         <p>Already on Career-Portal? &nbsp;&nbsp;
             <a href="sign_in.php">Sign in</a>
         </p>

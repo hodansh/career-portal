@@ -100,11 +100,11 @@ if ($valid == true) {
 
     switch ($selected_type) {
         case "employer":
-            AddEmployer($_POST["userName"], $_POST["password"], $_POST["email"], $_POST["company"], $_POST["tel"], $_POST["postalCode"], $_POST["city"], $_POST["address"], $categoryId);
+            AddEmployer($_POST["userName"], $_POST["password"], $_POST["email"], $_POST["company"], $_POST["tel"], $_POST["postalCode"], $_POST["city"], $_POST["address"], $categoryId, "active");
             echo "<script type='text/javascript'>window.location.href = '../dashboards/employer_dashboard.php?idh={$idh}&ajax_show=experience';</script>"; //navigate to dashboard    
             break;
         case "employee":
-            AddEmployee($_POST["userName"], $_POST["password"], $_POST["email"], $_POST["tel"], $_POST["postalCode"], $_POST["city"], $_POST["address"], $categoryId);
+            AddEmployee($_POST["userName"], $_POST["password"], $_POST["email"], $_POST["tel"], $_POST["postalCode"], $_POST["city"], $_POST["address"], $categoryId,"active");
             echo "<script type='text/javascript'>window.location.href = '../dashboards/employee_dashboard.php?idh={$idh}&ajax_show=experience';</script>";    //navigate to dashboard
             break;
     }
