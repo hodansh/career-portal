@@ -32,5 +32,15 @@ else { // this means one or more of the fields are empty. (valid is not true)
     $AdminErrorMessage[] = "All fields are required.";
 }
 if(isset($_POST["deleteByUserName"])){
-    echo deleteUser($_POST["userNameToBeDeleted"]);
+    $_SESSION["deleteResult"]= deleteUser($_POST["userNameToBeDeleted"]);
+}
+if(isset($_POST["userNameToBeActivated"])){
+    $_SESSION["activationResult"]= activateUser($_POST["userNameToBeActivated"]);
+}
+if(isset($_POST["userNameToBeDeactivated"])){
+    $_SESSION["activationResult"]= deactivateUser($_POST["userNameToBeDeactivated"]);
+}
+if(isset($_POST["showAll"])){
+    $_SESSION["showAllEmployers"]= findAll("Employer");
+    $_SESSION["showAllEmployees"]= findAll("Employee");
 }

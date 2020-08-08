@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./css/style.css" rel="stylesheet" type="text/css" /> <!-- link to css file -->
+    <link href="./css/style.css?version=52" rel="stylesheet" type="text/css" /> <!-- link to css file -->
     <title>Employer Dashboard</title>
 </head>
 
