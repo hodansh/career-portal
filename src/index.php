@@ -1,6 +1,11 @@
-<?php session_start(); // session will keep the desired info (on the server) when user is navigating to other pages.
+<?php
+if (is_array($_SESSION)){
+$_SESSION=[]; // if there's an existing session clear it!
+}
+session_start(); // session will keep the desired info (on the server) when user is navigating to other pages.
+
 $_SESSION["userName"] = ""; //for example, when you register the user, you can use this variable to show his name on the welcome page (welcome USERNAME)
-include_once "formValidation.php"; //including an external php file, so the variables in this page will be accessible in that page and vice versa
+include_once "./validation/sign_up_validation.php"; //including an external php file, so the variables in this page will be accessible in that page and vice versa
 include_once "database_operations.php"; // we include each file only once, because otherwise it will give errors and complain about multiple-times declarations 
 ?>
 
@@ -61,11 +66,11 @@ include_once "database_operations.php"; // we include each file only once, becau
                         <option value="employer_prime">Employer Prime Membership (5 job posts/month for $50)</option>
                         <option value="employer_gold">Employer Gold Membership (unlimited job posts/month for $100)</option>
 
-                        <option disabled="true" value="divider"></option> <!-- just to make a space between emloyer and applicant on the drop-down menu -->
+                        <option disabled="true" value="divider"></option> <!-- just to make a space between emloyer and employee on the drop-down menu -->
 
-                        <option value="applicant_basic">Applicant Basic Membership (can only view jobs for free)</option>
-                        <option value="applicant_prime">Applicant Prime Membership (apply for 5 jobs for $10/month)</option>
-                        <option value="applicant_gold">Applicant Gold Membership (apply for any number of jobs for $20/month)</option>
+                        <option value="employee_basic">employee Basic Membership (can only view jobs for free)</option>
+                        <option value="employee_prime">employee Prime Membership (apply for 5 jobs for $10/month)</option>
+                        <option value="employee_gold">employee Gold Membership (apply for any number of jobs for $20/month)</option>
 
                     </select>
                 </div>
@@ -76,7 +81,7 @@ include_once "database_operations.php"; // we include each file only once, becau
                     </div>
                 </div>
                 <div class="form_column">
-                    <label>Company (optional for applicants)</label>
+                    <label>Company (optional for employees)</label>
                     <div>
                         <input type="text" class="input_textbox" name="company" value="<?php if (isset($_POST['company'])) echo $_POST['company']; ?>">
                     </div>
@@ -119,7 +124,7 @@ include_once "database_operations.php"; // we include each file only once, becau
 
     <div class="form_column" style="text-align: center;">
         <p>Already on Career-Portal? &nbsp;&nbsp;
-            <a href="signin.php">Sign in</a>
+            <a href="sign_in.php">Sign in</a>
         </p>
     </div>
 
