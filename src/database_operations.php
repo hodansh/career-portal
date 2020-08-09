@@ -59,6 +59,16 @@ function AddEmployee($userName, $userPassword, $Email, $Telephone, $PostalCode, 
     $results = mysqli_query($conn, $sql);
 }
 
+function AddJobPost($title, $category, $jobDescription, $neededEmployees)
+{
+    $employerId = $_SESSION['employerId'];
+    $todayDate = date("Y-m-d");
+    global $conn;
+    $sql = "INSERT INTO Job (Title, Category, JobDescription, DatePosted, NeededEmployees, AppliedEmployees, AcceptedOffers, EmployerId)
+    VALUES ('$title', $category, '$jobDescription', '$todayDate', $neededEmployees, 0, 0, $employerId);";
+    $result = mysqli_query($conn, $sql);
+}
+
 function Authentication($userNameInput, $passwordInput)
 {
     $isMatched = false;

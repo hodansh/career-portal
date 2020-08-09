@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS CareerPortal;
-CREATE DATABASE CareerPortal;
-USE CareerPortal;
+DROP DATABASE IF EXISTS test_db;
+CREATE DATABASE test_db;
+USE test_db;
 
 CREATE TABLE EmployeeCategory
 (
