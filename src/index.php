@@ -127,7 +127,7 @@ include_once "database_operations.php"; // we include each file only once, becau
             <a href="sign_in.php">Sign in</a>
         </p>
     </div>
-
+ 
 
 </body>
 

@@ -1,5 +1,5 @@
 <?php session_start();
-include_once "../validation/post_job_validation.php"; 
+include_once "../validation/post_job_validation.php";
 ?>
 <html lang="en">
 
@@ -13,7 +13,7 @@ include_once "../validation/post_job_validation.php";
 
 <body>
     <h1>Employer Dashboard</h1>
-    <div class ="form-head"> Welcome <?php echo $_SESSION["userName"]; ?></div>
+    <div class="form-head"> Welcome <?php echo $_SESSION["userName"]; ?></div>
     <br>
     <form name="postJob" method="post" action="">
         <!-- we handle the form after submission in formVerification.php -->
@@ -49,7 +49,7 @@ include_once "../validation/post_job_validation.php";
             <div class="form_column">
                 <label>Job Description</label>
                 <div>
-                <textarea class= "input_textbox" name="jobDescription"  value=""></textarea>
+                    <textarea class="input_textbox" name="jobDescription" value=""></textarea>
                 </div>
             </div>
             <div class="form_column">
