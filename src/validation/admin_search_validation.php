@@ -44,3 +44,7 @@ if(isset($_POST["showAll"])){
     $_SESSION["showAllEmployers"]= findAll("Employer");
     $_SESSION["showAllEmployees"]= findAll("Employee");
 }
+if(isset($_POST["showJobs"])){
+    $_SESSION["allJobs"]= findAll("Job");
+}
+
