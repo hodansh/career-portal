@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <a href="../index.php" style="font-weight: 600;">Sign-out</a>
     <h1>Employee Dashboard</h1>
     <h1> Welcome <?php echo $_SESSION["userName"]; ?>
 </body>

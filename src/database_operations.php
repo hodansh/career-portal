@@ -59,6 +59,9 @@ function AddEmployee($userName, $userPassword, $Email, $Telephone, $PostalCode, 
     $results = mysqli_query($conn, $sql);
 }
 
+///////////////////////////////////////// JOB ////////////////////////////////////////////////////
+
+// POST
 function AddJobPost($title, $category, $jobDescription, $neededEmployees)
 {
     $employerId = $_SESSION['employerId'];
@@ -69,6 +72,76 @@ function AddJobPost($title, $category, $jobDescription, $neededEmployees)
     $result = mysqli_query($conn, $sql);
 }
 
+// DELETE
+function DeleteJobPost($id)
+{
+    global $conn;
+    $message = "You do not have a job with the given id, pick one from the table.";
+
+    $jobFound = GetJobForEmployer($id);
+
+    if (!is_null($jobFound)) {
+        $sql = "Delete FROM Job WHERE JobId=$id;";
+        if ($result = $conn->query($sql)) {
+            $message = "Job successfully deleted.";
+        }
+    }
+
+    return $message;
+}
+
+// UPDATE
+function EditJobPost($id, $title, $category, $jobDescription, $neededEmployees)
+{
+    global $conn;
+    $jobFound = GetJobForEmployer($id);
+    
+    if (!is_null($jobFound)) {
+        $sql = "Update Job
+        SET Title = '$title', Category = '$category', JobDescription = '$jobDescription', NeededEmployees = '$neededEmployees'
+        WHERE JobId = $id;";
+        $result = $conn->query($sql);
+        $message = $result;
+        if ($result = $conn->query($sql)) {
+            return "Job successfully updated.";
+        }
+    }
+
+    return null;
+}
+
+// GET
+function getJobById($id)
+{
+    $sql = "SELECT * FROM Job WHERE JobId =$id";
+    global $conn;
+    if ($result = $conn->query($sql)) {
+        if (mysqli_num_rows($result) > 0) { // if JobId was matched
+            $row = $result->fetch_row(); // this will get one full row of database for Job where JobId matched
+            $result->free_result(); // This will free the memory that was dedicated to preserve the result of the query
+            return $row;
+        }
+    }
+    return null;
+}
+
+// GET for specific employer
+function GetJobForEmployer($id)
+{
+    $employerId = $_SESSION['employerId'];
+    $sql = "SELECT * FROM Job WHERE JobId = $id AND EmployerId = $employerId";
+    global $conn;
+    if ($result = $conn->query($sql)) {
+        if (mysqli_num_rows($result) > 0) { // if JobId was matched
+            $row = $result->fetch_row(); // this will get one full row of database for Job where JobId matched
+            $result->free_result(); // This will free the memory that was dedicated to preserve the result of the query
+            return $row;
+        }
+    }
+    return null;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////
 function Authentication($userNameInput, $passwordInput)
 {
     $isMatched = false;

@@ -9,6 +9,7 @@ include_once "../database_operations.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="../css/style.css?version=52" rel="stylesheet" type="text/css" /> <!-- link to css file -->
+    <a href="../index.php" style="font-weight: 600;">Sign-out</a>
     <title>Admin Dashboard</title>
 </head>
 
