@@ -156,7 +156,7 @@ function findAllJobsForEmployer()
         }
         return $resultArray;
     }
-    return "Table $tableName is currenty empty.";
+    return "Table is currenty empty.";
 }
 
 
@@ -340,6 +340,16 @@ function findAppliedJobs($employeeId)
     return "You have not applied for any jobs yet!";
 }
 
+function addCategory($MembershipType,$Status,$MonthlyCharge,$MaxJobs){
+    global $conn;
+    $sql = "INSERT INTO $MembershipType (Status, MonthlyCharge, MaxJobs) 
+    VALUES ('$Status',$MonthlyCharge,$MaxJobs);";
+    if($result = $conn->query($sql)){
+        return "New category successfully added to $MembershipType table.";
+    }
+    return "We coulds not add the category.";
+
+}
 
 
 function connection_close($conn) // This can be used to close the connection, not the best approach! so we will have to figure out about the best way of doing it.
