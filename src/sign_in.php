@@ -8,7 +8,7 @@ include_once "./validation/sign_in_validation.php"; // we include each file only
 
 <head>
     <title>Sign in</title>
-    <link href="./css/style.css" rel="stylesheet" type="text/css" /> <!-- link to css file -->
+    <link href="./css/style.css?version=52" rel="stylesheet" type="text/css" /> <!-- link to css file -->
 </head>
 
 <body>
@@ -32,7 +32,7 @@ include_once "./validation/sign_in_validation.php"; // we include each file only
             }
             ?>
             <!--  ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-            <div class="form_column">
+            <div >
                 <label>Username</label>
                 <div>
                     <input type="text" class="input_textbox" name="userName" value="<?php if (isset($_POST['userName'])) echo $_POST['userName']; ?>">
@@ -40,7 +40,7 @@ include_once "./validation/sign_in_validation.php"; // we include each file only
                 </div>
             </div>
 
-            <div class="form_column">
+            <div >
                 <label>Password</label>
                 <div><input type="password" class="input_textbox" name="password" value=""></div>
             </div>
@@ -50,7 +50,7 @@ include_once "./validation/sign_in_validation.php"; // we include each file only
                     <input type="submit" name="signInFrom" value="Sign in" class="btnRegister">
                 </div>
             </div>
-            <div class="form_column" style="text-align: center;">
+            <div  style="text-align: center;">
         
             <a href="index.php" style="font-weight: 600;">Create a new account</a>
         

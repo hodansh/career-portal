@@ -22,7 +22,12 @@ if ($valid == true) {
             $SignInErrorMessage[] = "We couldn't match your Username/Password! Please check...";
             $valid = false;
         }
+        if($AuthenticationResult[3]=="true"){
+            $SignInErrorMessage[] = "Your account is currently inactive, please contact admins!";
+            $valid= false;
+        }
     }
+    
 }
 // -------------------------------------------------------------------------------------------------------------
 else { // this means one or more of the fields are empty. (valid is not true)
