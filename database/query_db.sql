@@ -10,17 +10,23 @@ UPDATE Employer
 SET Company = "Pres"
 WHERE EmployerId = 2;
 
+Select*
+From Employer;
+
 -- Create/Delete/Edit/Display a category by an Employer
 INSERT INTO EmployerCategory 
      (Status, MonthlyCharge, MaxJobs)
-VALUES ("Platinum",200, 69);
+VALUES ("Gold",100, null);
      
 DELETE FROM EmployerCategory
-WHERE MaxJobs = 69;
+WHERE EmployerCategory = 1;
 
 UPDATE EmployerCategory
 SET MaxJobs = null
 WHERE Status = "Gold";
+
+Select*
+From EmployerCategory;
 
 -- Post a new job by an employer.    
 INSERT INTO Job 
@@ -33,6 +39,7 @@ INSERT INTO JobOffer
 	(EmployeeId, JobId, Status, CreationDate)
 VALUES
 (1, 9, 0, "2020-08-09");
+
 
 -- Report of a posted job by an employer (Job title and description, date posted, list of employees applied to the job and status of each application). 
 SELECT Job.Title, Job.JobDescription, Job.DatePosted, Employee.UserName , JobApplication.status
@@ -60,7 +67,7 @@ WHERE EmployeeId = 3;
 -- Search for a job by an employee.
 SELECT Job.*
 FROM Job
-WHERE NeededEmployee > 0;  -- Searching for jobs with NeedEmployees more than 0
+WHERE NeededEmployees > 0;  -- Searching for jobs with NeedEmployees more than 0
 
 -- Apply for a job by an employee. 
 INSERT INTO JobApplication
@@ -70,8 +77,8 @@ VALUES
 
 -- Accept/Deny a job offer by an employee.
 UPDATE JobOffer
-SET Status = 1
-WHERE EmployeeId = 2; -- For EmployeeId 2 the status of his/her JobOffer is changed to 1
+SET Status = 1 -- Status 1 = accepted and Status 0 = rejected
+WHERE EmployeeId = 1; -- For EmployeeId 2 the status of his/her JobOffer is changed to 1
 
 -- Withdraw from an applied job by an employee. 
 UPDATE JobApplication
@@ -85,13 +92,13 @@ WHERE EmployeeId = 10; -- Deleting UserProfile for EmployeeId 10
 -- Report of applied jobs by an employee during a specific period of time (Job title, date applied, short description of the job up to 50 characters, status of the application). 
 SELECT Job.Title, Job.JobDescription, Job.DatePosted, JobApplication.Status
 FROM Job, JobApplication
-Where Job.JobId = JobApplication.JobId and JobApplication.EmployeeId = 1;
+Where Job.JobId = JobApplication.JobId and JobApplication.EmployeeId = 1 and Job.DatePosted BETWEEN "2018-01-01" and 2020-01-01 ;
 
 -- Add/Delete/Edit a method of payment by a user.  
 INSERT INTO Payment
-	(PaymentType, WithDrawalType, Status, EmployeeId, EmployerId)
+	(PaymentType, WithDrawalType, Status,Balance, EmployeeId, EmployerId)
 VALUES
-("Checking account", "Manual", "Active", null, 3); 
+("Checking account", "Manual", "Active",-100, null, 3); 
 
 DELETE FROM Payment 
 WHERE EmployerId = 3;
@@ -113,6 +120,8 @@ UPDATE Payment
 SET PaymentType = "Credit card"
 Where EmployeeId = 1 and WithDrawalType = "Automatic";
 
+Select* From Payment;
+
 -- Make a manual payment by a user.
 INSERT INTO Payment
 	(PaymentType, WithDrawalType, Status, EmployeeId, EmployerId)
@@ -120,10 +129,17 @@ VALUES
 ("Checking account", "Manual", "Active", 4, null);
 
 -- Report of all users by the administrator for employers or employees (Name, email, category, status, balance.
-Select UserProfile.FirstName, UserProfile.LastName, Employee.Email, EmployeeCategory.Status
-From Employee, UserProfile, EmployeeCategory
-Where Employee.EmployeeId = UserProfile.EmployeeId and EmployeeCategory.EmployeeCategoryId = Employee.EmployeeCategoryId 
--- Report of all outstanding balance accounts (User name, email, balance, since when the account is suffering). 
+Select UserProfile.FirstName, UserProfile.LastName, Employee.Email, EmployeeCategory.Status, Payment.balance
+From Employee, UserProfile, EmployeeCategory, Payment
+Where Employee.EmployeeId = UserProfile.EmployeeId and EmployeeCategory.EmployeeCategoryId = Employee.EmployeeCategoryId and Employee.EmployeeId = Payment.EmployeeId ;
 
+Select Employer.Company, Employer.Email, EmployerCategory.Status, Payment.balance
+From Employer, EmployerCategory, Payment
+Where EmployerCategory.EmployerCategoryId = Employer.EmployerCategoryId and Employer.EmployerId = Payment.EmployerId ;
+
+-- Report of all outstanding balance accounts (User name, email, balance, since when the account is suffering). 
+Select Employee.UserName, Employee.Email, Payment.balance
+From Employee, Payment
+Where Payment.balance > 0 and Employee.EmployeeId = Payment.EmployeeId;
  
    

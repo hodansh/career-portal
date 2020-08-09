@@ -72,7 +72,7 @@ CREATE TABLE JobApplication
 (
     EmployeeId INT NOT NULL,
     JobId INT NOT NULL,
-    Status VARCHAR(8) NOT NULL,
+    Status VARCHAR(10) NOT NULL,
     PRIMARY KEY (EmployeeId, JobId),
     FOREIGN KEY (EmployeeId) REFERENCES Employee (EmployeeId),
     FOREIGN KEY (JobId) REFERENCES Job (JobId)
@@ -105,6 +105,7 @@ CREATE TABLE Payment
 	PaymentType VARCHAR(100),
 	WithDrawalType VARCHAR(100),
 	Status VARCHAR(100),
+    Balance DECIMAL,
 	EmployeeId INT,
 	EmployerId INT,
 	primary key(PaymentID),
