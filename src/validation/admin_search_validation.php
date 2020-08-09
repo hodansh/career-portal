@@ -9,7 +9,7 @@ $SignInErrorMessage = array();
 
 foreach ($_POST as $key => $value) { // if any of the fields are empty the user has to fix it. 
 
-    if (empty($_POST[$key])) {
+    if (empty($_POST[$key]) && $key!="deleteByUserName") {
         $valid = false;
     }
 }
@@ -31,4 +31,16 @@ if ($valid == true) {
 else { // this means one or more of the fields are empty. (valid is not true)
     $AdminErrorMessage[] = "All fields are required.";
 }
-
+if(isset($_POST["deleteByUserName"])){
+    $_SESSION["deleteResult"]= deleteUser($_POST["userNameToBeDeleted"]);
+}
+if(isset($_POST["userNameToBeActivated"])){
+    $_SESSION["activationResult"]= activateUser($_POST["userNameToBeActivated"]);
+}
+if(isset($_POST["userNameToBeDeactivated"])){
+    $_SESSION["activationResult"]= deactivateUser($_POST["userNameToBeDeactivated"]);
+}
+if(isset($_POST["showAll"])){
+    $_SESSION["showAllEmployers"]= findAll("Employer");
+    $_SESSION["showAllEmployees"]= findAll("Employee");
+}

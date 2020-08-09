@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS CareerPortal;
-CREATE DATABASE CareerPortal;
-USE CareerPortal;
+DROP DATABASE IF EXISTS test_db;
+CREATE DATABASE test_db;
+USE test_db;
 
 CREATE TABLE EmployeeCategory
 (
@@ -32,6 +32,7 @@ CREATE TABLE Employer
     City VARCHAR(100) NOT NULL,
     Address VARCHAR(100) NOT NULL,
     EmployerCategoryId INT NOT NULL,
+    Status VARCHAR(8) NOT NULL,
     PRIMARY KEY (EmployerId),
     FOREIGN KEY (EmployerCategoryId) REFERENCES EmployerCategory (EmployerCategoryId)
 );
@@ -62,6 +63,7 @@ CREATE TABLE Employee
     City VARCHAR(100) NOT NULL,
     Address VARCHAR(100) NOT NULL,
     EmployeeCategoryId INT NOT NULL,
+    Status VARCHAR(8) NOT NULL,
     PRIMARY KEY (EmployeeId),
     FOREIGN KEY (EmployeeCategoryId) REFERENCES EmployeeCategory (EmployeeCategoryId)
 );

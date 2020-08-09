@@ -33,45 +33,56 @@ function userExists($userName_input, $email_input) // To check if a username/ema
     $sql_e_on_employee = "SELECT UserName FROM Employee WHERE Email='$email_input'";
     $res_e_on_employer = mysqli_query($conn, $sql_e_on_employer);
     $res_e_on_employee = mysqli_query($conn, $sql_e_on_employee);
-    if (mysqli_num_rows($res_u_on_employer) > 0 or mysqli_num_rows($res_u_on_employee) > 0) {  //if the email is found, the number of rows for the result would not be zero
-        $username_taken = true;
-    }
-
     if (mysqli_num_rows($res_e_on_employer) > 0 or mysqli_num_rows($res_e_on_employee) > 0) {  //if the email is found, the number of rows for the result would not be zero
         $email_taken = true;
     }
+
     $result = array($username_taken,  $email_taken);
     return $result;
 }
 
 
-function AddEmployer($userName, $userPassword, $Email, $Company, $Telephone, $PostalCode, $City, $Address, $EmployerCategoryId) // adding new employer to the table
+function AddEmployer($userName, $userPassword, $Email, $Company, $Telephone, $PostalCode, $City, $Address, $EmployerCategoryId, $Status) // adding new employer to the table
 {
     global $conn;
     $sql = "INSERT INTO Employer 
-     (UserName, UserPassword, Email, Company, Telephone, PostalCode, City, Address, EmployerCategoryId)
-     VALUES ('$userName','$userPassword','$Email','$Company', '$Telephone','$PostalCode','$City','$Address',$EmployerCategoryId);";
+     (UserName, UserPassword, Email, Company, Telephone, PostalCode, City, Address, EmployerCategoryId,Status)
+     VALUES ('$userName','$userPassword','$Email','$Company', '$Telephone','$PostalCode','$City','$Address',$EmployerCategoryId,'$Status');";
     $results = mysqli_query($conn, $sql);
 }
-function AddEmployee($userName, $userPassword, $Email, $Telephone, $PostalCode, $City, $Address, $EmployeeCategoryId) // adding new employee to the table
+function AddEmployee($userName, $userPassword, $Email, $Telephone, $PostalCode, $City, $Address, $EmployeeCategoryId, $Status) // adding new employee to the table
 {
     global $conn;
     $sql = "INSERT INTO Employee
-        (UserName, UserPassword, Email, Telephone, PostalCode, City, Address, EmployeeCategoryId)
-    VALUES ('$userName','$userPassword','$Email','$Telephone','$PostalCode','$City','$Address',$EmployeeCategoryId);";
+        (UserName, UserPassword, Email, Telephone, PostalCode, City, Address, EmployeeCategoryId,Status)
+    VALUES ('$userName','$userPassword','$Email','$Telephone','$PostalCode','$City','$Address',$EmployeeCategoryId,'$Status');";
     $results = mysqli_query($conn, $sql);
+}
+
+function AddJobPost($title, $category, $jobDescription, $neededEmployees)
+{
+    $employerId = $_SESSION['employerId'];
+    $todayDate = date("Y-m-d");
+    global $conn;
+    $sql = "INSERT INTO Job (Title, Category, JobDescription, DatePosted, NeededEmployees, AppliedEmployees, AcceptedOffers, EmployerId)
+    VALUES ('$title', $category, '$jobDescription', '$todayDate', $neededEmployees, 0, 0, $employerId);";
+    $result = mysqli_query($conn, $sql);
 }
 
 function Authentication($userNameInput, $passwordInput)
 {
     $isMatched = false;
+    $inactive = false;
     $match_employer = findAnEmployer($userNameInput);
     if ($match_employer != "not found") {
         if (strcasecmp($match_employer[1], "$userNameInput") == 0 && $match_employer[2] == "$passwordInput") { // strcasecmp will compare two strings case-insensitively, 
             // example: strcamsecmp(ABC,abc) will return 0
             $isMatched = True;
             $userType = "employer";
-            return [$isMatched, $userType, $match_employer[1]];
+            if ($match_employer[10]== "inactive"){
+                $inactive=true;
+            }
+            return [$isMatched, $userType, $match_employer[1], $inactive];
         }
     }
     $match_employee = findAnEmployee($userNameInput);
@@ -80,7 +91,10 @@ function Authentication($userNameInput, $passwordInput)
             // example: strcamsecmp(ABC,abc) will return 0
             $isMatched = True;
             $userType = "employee";
-            return [$isMatched, $userType, $match_employee[1]];
+            if ($match_employee[9]== "inactive"){
+                $inactive=true;
+            }
+            return [$isMatched, $userType, $match_employee[1], $inactive];
         }
     }
     return [false, "", ""]; // This is where the username or password was not a match to the database
@@ -117,14 +131,14 @@ function findAnEmployee($userNameInput)
 function findAll($tableName)
 {
     global $conn;
-    $sql = "SELECT * FROM '$tableName'";
+    $sql = "SELECT * FROM $tableName;";
     if ($result = $conn->query($sql)) {
-        if (mysqli_num_rows($result) > 0) {
-            $row = $result->fetch_row();
-            $result->free_result();
-            return $row;
+        while ($row = mysqli_fetch_assoc($result)){
+            $resultArray[] = $row;    
         }
+        return $resultArray;
     }
+    return "Table $tableName is currenty empty.";
 }
 
 function findUserByCriterion($searchString, $criterion, $tableName)
@@ -133,13 +147,70 @@ function findUserByCriterion($searchString, $criterion, $tableName)
     $sql = "SELECT * FROM $tableName WHERE $criterion=\"$searchString\" ORDER BY $criterion;";
     if ($result = $conn->query($sql)) {
         if (mysqli_num_rows($result) > 0) { // if at least one username was matched
-            $resultArray = mysqli_fetch_assoc($result);
-            // $result->fetch_all(MYSQLI_ASSOC); // this will all rows of database where username matched 
-            $result->free_result(); // This will free the memory that was dedicated to preserve the result of the query
+            while ($row = mysqli_fetch_assoc($result)){
+                $resultArray[] = $row;    
+            }
             return $resultArray;
         }
     }
     return "No results found for an $tableName with $criterion: $searchString!";
+}
+
+function deleteUser($userNameInput)
+{
+    global $conn;
+    $message = "We could not find any user with UserName= $userNameInput in any of the tables";
+    if (findAnEmployer($userNameInput) != "not found!") {
+        $sql = "Delete FROM Employer WHERE UserName='$userNameInput';";
+        if ($result = $conn->query($sql)) {
+            $message = "$userNameInput was successfully deleted from Employers.";
+        }
+    } else  
+if (findAnEmployee($userNameInput) != "not found!") {
+        $sql = "Delete FROM Employee WHERE UserName='$userNameInput';";
+        if ($result = $conn->query($sql)) {
+            $message = "$userNameInput was successfully deleted from Employees.";
+        }
+    }
+    return $message;
+}
+
+
+function activateUser($userNameInput)
+{
+    global $conn;
+    if (findAnEmployer($userNameInput) == "not found!" && findAnEmployee($userNameInput) == "not found!") {
+        $message = "The user name you entered cannot be found.";
+        return $message;
+    }
+    if(findAnEmployer($userNameInput) != "not found!"){
+    $sql = "UPDATE Employer SET Status = 'active'  WHERE UserName= '$userNameInput';";
+    }
+    else{
+        $sql = "UPDATE Employee SET Status = 'active'  WHERE UserName= '$userNameInput';";
+    }
+    if ($result = $conn->query($sql)) {
+        $message = "$userNameInput was successfully activated.";
+    }
+    return $message;
+}
+function deactivateUser($userNameInput)
+{
+    global $conn;
+    if (findAnEmployer($userNameInput) == "not found!" && findAnEmployee($userNameInput) == "not found!") {
+        $message = "The user name you entered cannot be found.";
+        return $message;
+    }
+    if(findAnEmployer($userNameInput) != "not found!"){
+        $sql = "UPDATE Employer SET Status = 'inactive'  WHERE UserName= '$userNameInput';";
+        }
+        else{
+            $sql = "UPDATE Employee SET Status = 'inactive'  WHERE UserName= '$userNameInput';";
+        }
+    if ($result = $conn->query($sql)) {
+        $message = "$userNameInput was successfully deactivated.";
+    }
+    return $message;
 }
 
 
