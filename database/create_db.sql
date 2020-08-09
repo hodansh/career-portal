@@ -86,3 +86,26 @@ CREATE TABLE JobOffer
     FOREIGN KEY (EmployeeId) REFERENCES Employee (EmployeeId),
     FOREIGN KEY (JobId) REFERENCES Job (JobId)
 );
+
+CREATE TABLE UserProfile
+(
+	FirstName VARCHAR(100),
+    LastName VARCHAR(100),
+    Degree VARCHAR(100),
+    EmployeeID INT NOT NULL,
+    PRIMARY KEY(FirstName,LastName),
+    FOREIGN KEY (EmployeeId) REFERENCES Employee(EmployeeId)
+);
+
+CREATE TABLE Payment
+(
+		PaymentID INT NOT NULL  AUTO_INCREMENT,
+		PaymentType VARCHAR(100),
+        WithDrawalType VARCHAR(100),
+        Status VARCHAR(100),
+        EmployeeId INT,
+        EmployerId INT,
+        primary key(PaymentID),
+        FOREIGN KEY (EmployeeId) REFERENCES Employee(EmployeeID),
+        FOREIGN KEY (EmployerId) REFERENCES Employer(EmployerID)
+);
