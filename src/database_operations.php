@@ -69,6 +69,20 @@ function AddJobPost($title, $category, $jobDescription, $neededEmployees)
     $result = mysqli_query($conn, $sql);
 }
 
+function createJobApplication($jobId){
+    global $conn;
+    $employeeId = $_SESSION['employeeId'];
+    $sql = "INSERT INTO JobApplication (EmployeeId, JobId, Status)
+    VALUES ($employeeId, $jobId, 'active');";
+    if ($result = mysqli_query($conn, $sql)){
+        return "Job Application successfully created.";
+    }
+    else{
+        return "Job application cannot be created";
+    }
+
+}
+
 function Authentication($userNameInput, $passwordInput)
 {
     $isMatched = false;
@@ -212,6 +226,8 @@ function deactivateUser($userNameInput)
     }
     return $message;
 }
+
+
 
 
 function connection_close($conn) // This can be used to close the connection, not the best approach! so we will have to figure out about the best way of doing it.

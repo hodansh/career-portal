@@ -298,7 +298,7 @@ include_once "../database_operations.php";
                 }
                 //--------------------------------------------------------------------------------------------------------------------------------
 
-                if (isset($_SESSION["allJobs"])) { //show all the tables:
+                if (isset($_SESSION["allJobs"])) { //show all the jobs:
                     $res_jobs = $_SESSION["allJobs"];
 
                     if (is_array($res_jobs)) {
