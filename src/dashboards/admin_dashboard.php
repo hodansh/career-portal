@@ -132,37 +132,94 @@ include_once "../database_operations.php";
             </td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td>
                 <form name="showJobs" method="post" action="">
                     <div class="table">
-                        <label style="font-weight:200 ;">Click to see all the jobs: </label>
+                        <label style="font-weight:200 ;">Click to see all the jobs:</label>
                     </div>
                     <div>
                         <input type="submit" name="showJobs" value="Show All the Jobs" class="btnRegister">
                     </div>
                 </form>
+            </td>
+            <td>
+                <form name="showCategories" method="post" action="">
+                    <div class="table">
+                        <label style="font-weight:200 ;">Click to see membership categories:</label>
+                    </div>
+                    <div>
+                        <input type="submit" name="showCategories" value="Show Membership Choices" class="btnRegister">
+
+                    </div>
+                </form>
+            </td>
+        <tr>
+            <td colspan="2">
+                <form name="addCategory" method="post" action="">
+                    <div class="table">
+                        <label style="font-weight:200 ;">Add a new membership category:</label>
+                    </div>
+                    
+                    <label>Membership name (golden, prime, ...)</label>
+                    <div>
+                        <input type="text" class="input_textbox" name="Status">
+                    </div>
+
+                    <label>Monthly Charge</label>
+                    <div>
+                        <input type="number" class="input_textbox" name="MonthlyCharge">
+                    </div>
+                    
+                    <label>Maximum Jobs</label>
+                    <div>
+                        <input type="number" class="input_textbox" name="MaxJobs">
+                    </div>
+
+                    <div>
+                    <select name="MembershipType">
+                        <option hidden disabled selected value> -- select an option -- </option>
+                        <option value="EmployerCategory">add a membership type for Employers</option>
+                        <option value="EmployeeCategory">add a membership type for Employees</option>
+                    </select>
+                </div>
+
+                <div>
+                        <input type="submit" name="addCategory" value="Add Membership Category" class="btnRegister">
+
+                    </div>
+                    <?php 
+                    if(isset($_SESSION['addCategoryResult']) && isset($_POST['addCategory']))
+                    {
+                        echo "<div class='form-head2'>". $_SESSION['addCategoryResult']. "</div>";
+                        }
+                        ?>
+                </form>
+            </td>
+        </tr>
+    </table>
 
 
-                <!-- all the results for any of the buttons will be shown here: -->
-                <?php
 
-                if (isset($_SESSION["deleteResult"])) { //showing the results for delete user:
-                    echo "<div class='form-head2'>" . $_SESSION["deleteResult"] . "</div>";
-                }
+    <!-- all the results for any of the buttons will be shown here: -->
+    <?php
 
-                if (isset($_SESSION["activationResult"])) { //showing the results for activate/deactivate user:
-                    echo "<div class='form-head2'>" . $_SESSION["activationResult"] . "</div>";
-                }
+    if (isset($_POST["deleteByUserName"])) { //showing the results for delete user:
+        echo "<div class=form-head2 style='font-size: large;'>" . $_SESSION["deleteResult"] . "</div>";
+    }
+
+    if (isset($_POST["activateUser"]) or isset($_POST["deactivateUser"])) { //showing the results for activate/deactivate user:
+        echo "<div class=form-head2 style='font-size: large;'>" . $_SESSION["activationResult"] . "</div>";
+    }
 
 
-                // ------------------------------------------------------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-                if (isset($_SESSION["search_results_employers"]) && isset($_SESSION["search_results_employees"])) { //showing the results for search user by criterion:
-                    $res_employers = $_SESSION["search_results_employers"];
-                    $res_employees = $_SESSION["search_results_employees"];
-                    if (is_array($res_employers)) {
+    if (isset($_POST["searchString"])) { //showing the results for search user by criterion:
+        $res_employers = $_SESSION["search_results_employers"];
+        $res_employees = $_SESSION["search_results_employees"];
+        if (is_array($res_employers)) {
 
-                        echo "<div class='form-head2'>Search Results in Employers:</div><br>
+            echo "<div class=form-head2 style='font-size: large;'>Search Results in Employers:</div><br>
         
         <table> <tr>
         <td styles>UserName</td>
@@ -177,26 +234,26 @@ include_once "../database_operations.php";
         <td>Status</td>         
         
         </tr>";
-                        foreach ($res_employers as $row) {
-                            foreach ($row as $key => $value) {
-                                if ($key == "EmployerId") {
-                                    echo "<tr>";
-                                } else {
-                                    echo "<td> $value";
-
-                                    if ($key == "Status") {
-                                        echo "</tr>";
-                                    }
-                                }
-                            }
-                        }
-                        echo "</table>";
+            foreach ($res_employers as $row) {
+                foreach ($row as $key => $value) {
+                    if ($key == "EmployerId") {
+                        echo "<tr>";
                     } else {
-                        echo "<h3 class='form-head2'>$search_results_employers</h3><br>"; // Because no results found in employers.
-                    }
-                    if (is_array($res_employees)) {
+                        echo "<td> $value";
 
-                        echo "<div class='form-head2'><br>Search Results in Employees:</div><br>
+                        if ($key == "Status") {
+                            echo "</tr>";
+                        }
+                    }
+                }
+            }
+            echo "</table>";
+        } else {
+            echo "<h3 class=form-head2 style='font-size: large;'>$search_results_employers</h3><br>"; // Because no results found in employers.
+        }
+        if (is_array($res_employees)) {
+
+            echo "<div class=form-head2 style='font-size: large;'><br>Search Results in Employees:</div><br>
         <table> <tr>
         <td styles>UserName</td>
         <td>Password</td>
@@ -208,32 +265,32 @@ include_once "../database_operations.php";
         <td>CategoryID</td>  
         <td>Status</td>      
         </tr>";
-                        foreach ($res_employees as $row) {
-                            foreach ($row as $key => $value) {
-                                if ($key == "EmployeeId") {
-                                    echo "<tr>";
-                                } else {
-                                    echo "<td> $value";
-
-                                    if ($key == "Status") {
-                                        echo "</tr>";
-                                    }
-                                }
-                            }
-                        }
-                        echo "</table>";
+            foreach ($res_employees as $row) {
+                foreach ($row as $key => $value) {
+                    if ($key == "EmployeeId") {
+                        echo "<tr>";
                     } else {
-                        echo "<h3 class='form-head2'>$search_results_employees</h3><br>"; // Because no results found in employees.  
+                        echo "<td> $value";
+
+                        if ($key == "Status") {
+                            echo "</tr>";
+                        }
                     }
                 }
-                // ------------------------------------------------------------------------------------------------------------------------------------------------------------
+            }
+            echo "</table>";
+        } else {
+            echo "<h3 class=form-head2 style='font-size: large;'>$search_results_employees</h3><br>"; // Because no results found in employees.  
+        }
+    }
+    // ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-                if (isset($_SESSION["showAllEmployers"]) && isset($_SESSION["showAllEmployees"])) { //show all the tables:
-                    $res_employers = $_SESSION["showAllEmployers"];
-                    $res_employees = $_SESSION["showAllEmployees"];
-                    if (is_array($res_employers)) {
+    if (isset($_POST["showAll"])) { //show all the tables:
+        $res_employers = $_SESSION["showAllEmployers"];
+        $res_employees = $_SESSION["showAllEmployees"];
+        if (is_array($res_employers)) {
 
-                        echo "<div class='form-head2'>All the entries in Employer table:</div><br>
+            echo "<div  class=form-head2 style='font-size: large;'>All the entries in Employer table:</div><br>
         
         <table> <tr>
         <td styles>UserName</td>
@@ -248,26 +305,26 @@ include_once "../database_operations.php";
         <td>Status</td>         
         
         </tr>";
-                        foreach ($res_employers as $row) {
-                            foreach ($row as $key => $value) {
-                                if ($key == "EmployerId") {
-                                    echo "<tr>";
-                                } else {
-                                    echo "<td> $value";
-
-                                    if ($key == "Status") {
-                                        echo "</tr>";
-                                    }
-                                }
-                            }
-                        }
-                        echo "</table>";
+            foreach ($res_employers as $row) {
+                foreach ($row as $key => $value) {
+                    if ($key == "EmployerId") {
+                        echo "<tr>";
                     } else {
-                        echo "<h3 class='form-head2'>$search_results_employers</h3><br>"; // Because no results found in employers.
-                    }
-                    if (is_array($res_employees)) {
+                        echo "<td> $value";
 
-                        echo "<div class='form-head2'><br>All the entries in Employee table:</div><br>
+                        if ($key == "Status") {
+                            echo "</tr>";
+                        }
+                    }
+                }
+            }
+            echo "</table>";
+        } else {
+            echo "<h3 class=form-head2 style='font-size: large;'>$search_results_employers</h3><br>"; // Because no results found in employers.
+        }
+        if (is_array($res_employees)) {
+
+            echo "<div class=form-head2 style='font-size: large;'><br>All the entries in Employee table:</div><br>
         <table> <tr>
         <td styles>UserName</td>
         <td>Password</td>
@@ -279,32 +336,32 @@ include_once "../database_operations.php";
         <td>CategoryID</td>  
         <td>Status</td>      
         </tr>";
-                        foreach ($res_employees as $row) {
-                            foreach ($row as $key => $value) {
-                                if ($key == "EmployeeId") {
-                                    echo "<tr>";
-                                } else {
-                                    echo "<td> $value";
-
-                                    if ($key == "Status") {
-                                        echo "</tr>";
-                                    }
-                                }
-                            }
-                        }
-                        echo "</table>";
+            foreach ($res_employees as $row) {
+                foreach ($row as $key => $value) {
+                    if ($key == "EmployeeId") {
+                        echo "<tr>";
                     } else {
-                        echo "<h3 class='form-head2'>$search_results_employees</h3><br>"; // Because no results found in employees.  
+                        echo "<td> $value";
+
+                        if ($key == "Status") {
+                            echo "</tr>";
+                        }
                     }
                 }
-                //--------------------------------------------------------------------------------------------------------------------------------
+            }
+            echo "</table>";
+        } else {
+            echo "<h3 class=form-head2 style='font-size: large;'>$search_results_employees</h3><br>"; // Because no results found in employees.  
+        }
+    }
+    //--------------------------------------------------------------------------------------------------------------------------------
 
-                if (isset($_SESSION["allJobs"])) { //show all the jobs:
-                    $res_jobs = $_SESSION["allJobs"];
+    if (isset($_POST["showJobs"])) { //show all the jobs:
+        $res_jobs = $_SESSION["allJobs"];
 
-                    if (is_array($res_jobs)) {
+        if (is_array($res_jobs)) {
 
-                        echo "<div class='form-head2'>All the entries in Job table:</div><br>
+            echo "<div class=form-head2 style='font-size: large;'>All the entries in Job table:</div><br>
         
         <table> <tr>
         <td styles>JobId</td>
@@ -318,27 +375,87 @@ include_once "../database_operations.php";
         <td>EmployerId</td>
         
         </tr>";
-                        foreach ($res_jobs as $row) {
-                            foreach ($row as $key => $value) {
-                                if ($key == "JobId") {
-                                    echo "<tr><td>$value";
-                                } else {
-                                    echo "<td> $value";
-
-                                    if ($key == "EmployerId") {
-                                        echo "</tr>";
-                                    }
-                                }
-                            }
-                        }
-                        echo "</table>";
+            foreach ($res_jobs as $row) {
+                foreach ($row as $key => $value) {
+                    if ($key == "JobId") {
+                        echo "<tr><td>$value";
                     } else {
-                        echo "<h3 class='form-head2'>$res_jobs</h3><br>"; // Because no results found in jobs.
+                        echo "<td> $value";
+
+                        if ($key == "EmployerId") {
+                            echo "</tr>";
+                        }
                     }
                 }
+            }
+            echo "</table>";
+        } else {
+            echo "<h3 class=form-head2 style='font-size: large;'>$res_jobs</h3><br>"; // Because no results found in jobs.
+        }
+    }
+
+    if (isset($_POST["showCategories"])) {
+        $employer_categories = findAll("EmployerCategory");
+        $employee_categories = findAll("EmployeeCategory");
+        echo "<div class=form-head2 style='font-size: large;'> Here is the membership choices for Employers: </div>
+                    <table> <tr>
+        <td>EmployerCategoryId</td>
+        <td>Status</td>
+        <td>MonthlyCharge</td>
+        <td>MaxJobs</td>
+         </tr>";
+        foreach ($employer_categories as $row) {
+            foreach ($row as $key => $value) {
+                if ($key == "EmployeeCategoryId") {
+                    echo "<tr><td>$value";
+                } else {
+                    if ($value == null) {
+                        echo "<td> unlimited";
+                    } else {
+                        echo "<td> $value";
+                    }
+
+                    if ($key == "MaxJobs") {
+                        echo "</tr>";
+                    }
+                }
+            }
+        }
 
 
-                ?>
+        echo "</table><br><div class=form-head2 style='font-size: large;'> Here is the membership choices for Employees: </div>
+                <table> <tr>
+    <td>EmployeeCategoryId</td>
+    <td>Status</td>
+    <td>MonthlyCharge</td>
+    <td>MaxJobs</td>
+     </tr>";
+        foreach ($employee_categories as $row) {
+            foreach ($row as $key => $value) {
+                if ($key == "EmployeeCategoryId") {
+                    echo "<tr><td>$value";
+                } else {
+                    if ($value == null) {
+                        echo "<td> unlimited";
+                    } else {
+                        echo "<td> $value";
+                    }
+
+                    if ($key == "MaxJobs") {
+                        echo "</tr>";
+                    }
+                }
+            }
+        }
+        echo "</table>";
+    }
+
+    if(isset($_POST['addCategory'])){
+        $_SESSION['addCategoryResult'] = addCategory($_POST["MembershipType"],$_POST["Status"],$_POST["MonthlyCharge"],$_POST["MaxJobs"]);
+    }
+
+
+    ?>
 
 
 
