@@ -159,6 +159,17 @@ function findAllJobsForEmployer()
     return "Table is currenty empty.";
 }
 
+// POST Job Offer
+function AddJobOffer($jobId, $employeeId, $jobOfferStatus)
+{
+    $employerId = $_SESSION['employerId'];
+    $todayDate = date("Y-m-d");
+    global $conn;
+    $sql = "INSERT INTO JobOffer (EmployeeId, JobId, Status, CreationDate)
+    VALUES ($jobId, $employeeId, '$jobOfferStatus', '$todayDate');";
+    $result = mysqli_query($conn, $sql);
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
