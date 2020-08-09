@@ -62,7 +62,7 @@ function AddEmployee($userName, $userPassword, $Email, $Telephone, $PostalCode, 
     $results = mysqli_query($conn, $sql);
 }
 
-///////////////////////////////////////// JOB ////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////// JOB //////////////////////////////////////////////////////////////////////
 
 // POST
 function AddJobPost($title, $category, $jobDescription, $neededEmployees)
@@ -160,7 +160,11 @@ function findAllJobsForEmployer()
 }
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////// JOB APPLICATION //////////////////////////////////////////////////////////
+
+// POST
 function createJobApplication($jobId)
 {
     global $conn;
@@ -175,6 +179,24 @@ function createJobApplication($jobId)
         return  "Job application cannot be created";
     }
 }
+
+// GET all for specific employer
+function findPostedJobs()
+{
+    global $conn;
+    $employerId = $_SESSION['employerId'];
+    $sql = "SELECT Employee.EmployeeId, Employee.UserName, Employee.Email, Employee.Telephone, Job.JobId, Job.Title FROM JobApplication, Job, Employee WHERE JobApplication.JobId = Job.JobId AND Employee.EmployeeId = JobApplication.EmployeeId AND EmployerId=$employerId;";
+    if ($result = $conn->query($sql)) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $resultArray[] = $row;
+        }
+
+        return $resultArray;
+    }
+    return "You have not posted any jobs yet!";
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function Authentication($userNameInput, $passwordInput)
 {
