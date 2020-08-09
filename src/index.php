@@ -61,9 +61,8 @@ include_once "database_operations.php"; // we include each file only once, becau
 
 
 
-                <label>Please select your user preference:</label>
+                <label>Please select your membership preference:</label>
                 <div>
-
                     <select name="MembershipType" id="membership_selection">
                         <!-- This is a drop-down menu. $_POST['MembershipType] will give you the value of selected option after form submission. -->
                         <option hidden disabled selected value> -- select an option -- </option>
@@ -72,15 +71,19 @@ include_once "database_operations.php"; // we include each file only once, becau
                         $employee_categories = findAll("EmployeeCategory");
 
                         foreach ($employer_categories as $row) {
-
-                            echo "<option value='employer_" . $row['Status'] . ">Employer " . $row['Status'] . " Membership (" . $row['MaxJobs'] . " job posts/month for $" . $row['MonthlyCharge'] . ")</option>";
+                          if($row['MaxJobs']==null){
+                            $row['MaxJobs']= "unlimited";
+                          }
+                            echo "<option value='employer_" . $row['EmployerCategoryId'] . "'>Employer " . $row['Status'] . " Membership (" . $row['MaxJobs'] . " job posts/month for $" . $row['MonthlyCharge'] . ")</option>";
                         }
                         echo "<option disabled='true' value='divider'></option>";
                         
                         foreach ($employee_categories as $row) {
+                            if($row['MaxJobs']==null){
+                                $row['MaxJobs']= "unlimited";
+                              }    
 
-
-                            echo "<option value='employee_" . $row['Status'] . ">Employer " . $row['Status'] . " Membership (" . $row['MaxJobs'] . " job posts/month for $" . $row['MonthlyCharge'] . ")</option>";
+                            echo "<option value='employee_" . $row['EmployeeCategoryId'] . "'>Employee " . $row['Status'] . " Membership (" . $row['MaxJobs'] . " job posts/month for $" . $row['MonthlyCharge'] . ")</option>";
                         }
 
                         ?>
