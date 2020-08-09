@@ -132,13 +132,24 @@ include_once "../database_operations.php";
             </td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td>
                 <form name="showJobs" method="post" action="">
+                    <div class="table">
+                        <label style="font-weight:200 ;">Click to see membership categories: </label>
+                    </div>
+                    <div>
+                    <input type="submit" name="showJobs" value="Show All the Jobs" class="btnRegister">    
+                    </div>
+                </form>
+            </td>
+                <td>
+                <form name="showCategories" method="post" action="">
                     <div class="table">
                         <label style="font-weight:200 ;">Click to see all the jobs: </label>
                     </div>
                     <div>
-                        <input type="submit" name="showJobs" value="Show All the Jobs" class="btnRegister">
+                    <input type="submit" name="showCategories" value="Show Membership Choices" class="btnRegister">    
+                    
                     </div>
                 </form>
 
