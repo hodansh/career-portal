@@ -76,9 +76,9 @@ if ($valid == true) {
 
     // If we reach here then every field was good and checked. now we need to see if a username/email was already taken in any of the user tables.
         
-    $member_exists = userExists($_POST['userName'], $_POST["email"]); 
+    $member_exists = userExists($_POST["userName"], $_POST["email"]); 
           
-    if ($member_exists[0] == true or strcasecmp($_POST['userName'], "admin")){
+    if ($member_exists[0] == true or strcasecmp($_POST['userName'], "admin")==0){
          // we will not allow any user to create admin account (username = admin, pass = admin is the only admin)
         $errorMessage[] = "This username is not available, please choose another username.";
         $valid = false;

@@ -17,11 +17,12 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
 <body>
     <a href="../index.php" style="font-weight: 600;">Sign-out</a>
     <h1>Employer Dashboard</h1>
-    <h1> Welcome <?php echo $_SESSION["userName"]; ?>
+    <div class="form-head"> Welcome <?php echo $_SESSION["userName"]; ?></div>
+    <br>
     <form name="postJob" method="post" action="">
         <!-- we handle the form after submission in formVerification.php -->
         <div class="table">
-            <div class="form-head">Post job here:</div>
+            <div class="form-head2">Post jobs here:</div>
             <!--  ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
             <?php // to show error messages about bad inputs, we would have to show them on top of the page. Error messages are created in formValidation page
             if (!empty($PostJobErrorMessage) && is_array($PostJobErrorMessage) && isset($_POST["postJob"])) {
@@ -50,7 +51,7 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
                 </div>
             </div>
             <div class="form_column">
-                <label>Job Desription</label>
+                <label>Job Description</label>
                 <div>
                 <textarea name="jobDescription" rows="4" cols="50" placeholder ="<?php if (isset($_POST['jobDescription'])) echo $_POST['jobDescription']; ?>"></textarea>
                 </div>
