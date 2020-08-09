@@ -78,8 +78,7 @@ VALUES
 ("Farrah","Dotson","LK",11),
 ("Ezekiel","Griffin","SDC",12),
 ("Stone","King","DSDS",13),
-("Ryan","Douglas","SSQ",14),
-("Oprah","Horne","BF",15);
+("Ryan","Douglas","SSQ",14);
 
 select * from EmployerCategory;
 select * from EmployeeCategory;
