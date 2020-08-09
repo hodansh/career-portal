@@ -5,27 +5,17 @@ $categoryId = ""; // this will be the last entry for categoryId of employer/empl
 $selected_type = ""; // this would be the membership type that was selected by userinput
 
 if (isset($_POST['MembershipType'])) { //program will behave differently based on the type of membership selected
-    switch ($_POST['MembershipType']) {
-        case "employer_prime":
-            $categoryId = 1;
+    if (strpos($_POST['MembershipType'], "employer_")!== false) { //this is an employer then!
+        
+            $categoryId =trim($_POST['MembershipType'],"employer_");
             $selected_type = "employer";
-            break;
-        case "employer_gold":
-            $categoryId = 2;
-            $selected_type = "employer";
-            break;
-        case "employee_basic":
-            $categoryId = 1;
-            $selected_type = "employee";
-            break;
-        case "employee_prime":
-            $categoryId = 2;
-            $selected_type = "employee";
-            break;
-        case "employee_gold":
-            $categoryId = 3;
-            $selected_type = "employee";
-            break;
+    }
+    else
+    if (strpos($_POST['MembershipType'], "employee_")!== false) { //this is an employee then!
+        
+        $categoryId =trim($_POST['MembershipType'],"employee_");
+        $selected_type = "employee";
+        
     }
 }
 
