@@ -112,15 +112,8 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
                                 <input type="radio" name="jobOfferStatus" id="approve" value="Approved" <?php if (isset($_POST['jobOfferStatus'])) echo $_POST['jobOfferStatus']; ?> required>
                                 <label for="reject">Reject: </label>
                                 <input type="radio" name="jobOfferStatus" id="reject" value="Rejected" <?php if (isset($_POST['jobOfferStatus'])) echo $_POST['jobOfferStatus']; ?> required>
-                            <!-- <textarea name="jobDescription" rows="4" cols="45" placeholder =""></textarea> -->
                             </div>
                         </div>
-                        <!-- <div class="form_column">
-                            <label>Needed employees</label>
-                            <div>
-                                <input type="number" min="0" class="input_textbox" name="neededEmployees" value ="<?php if (isset($_POST['neededEmployees'])) echo $_POST['neededEmployees']; ?>">
-                            </div>
-                        </div> -->
                         <div>
                             <div>
                                 <input type="submit" name="postJobOffer" value="Approve/Reject an Application" class="btnRegister">
