@@ -14,7 +14,7 @@ if(isset($_POST["postJobOffer"]))
     }
 
     if ($valid) {
-        $PostJobResult = AddJobOffer($_POST['jobTitle'], $_POST['jobCategory'], $_POST['jobDescription'], $_POST['neededEmployees']);
+        $PostJobResult = AddJobOffer($_POST['jobId'], $_POST['employeeId'], $_POST['jobOfferStatus']);
         
     } else { $PostJobErrorMessage[] = "All fields are required."; }
 }

@@ -78,7 +78,7 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
                 <form name="postJobOffer" method="post" action="">
                     <!-- we handle the form after submission in formVerification.php -->
                     <div class="table">
-                        <div class="form-head2">Post job offers here:</div>
+                        <div class="form-head2">Post job offers:</div>
                         <!--  ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
                         <?php // to show error messages about bad inputs, we would have to show them on top of the page. Error messages are created in formValidation page
                         if (!empty($PostJobErrorMessage) && is_array($PostJobErrorMessage) && isset($_POST["postJobOffer"])) {
@@ -95,32 +95,35 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
                         ?>
                         <!--  ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
                         <div class="form_column">
-                            <label>Job Title</label>
+                            <label>Job ID</label>
                             <div>
-                                <input type="text" class="input_textbox" name="jobTitle" value ="<?php if (isset($_POST['jobTitle'])) echo $_POST['jobTitle']; ?>">
+                                <input type="text" class="input_textbox" name="jobId" value ="<?php if (isset($_POST['jobId'])) echo $_POST['jobId']; ?>">
                             </div>
                         </div>
                         <div class="form_column">
-                            <label>Category</label>
+                            <label>Employee ID</label>
                             <div>
-                                <input type="number" min="0" class="input_textbox" name="jobCategory" value ="<?php if (isset($_POST['jobCategory'])) echo $_POST['jobCategory']; ?>">
+                                <input type="number" min="0" class="input_textbox" name="employeeId" value ="<?php if (isset($_POST['employeeId'])) echo $_POST['employeeId']; ?>">
                             </div>
                         </div>
                         <div class="form_column">
-                            <label>Job Description</label>
                             <div>
-                            <textarea name="jobDescription" rows="4" cols="45" placeholder ="<?php if (isset($_POST['jobDescription'])) echo $_POST['jobDescription']; ?>"></textarea>
+                                <label for="approve">Approve: </label>
+                                <input type="radio" name="jobOfferStatus" id="approve" value="Approved" <?php if (isset($_POST['jobOfferStatus'])) echo $_POST['jobOfferStatus']; ?> required>
+                                <label for="reject">Reject: </label>
+                                <input type="radio" name="jobOfferStatus" id="reject" value="Rejected" <?php if (isset($_POST['jobOfferStatus'])) echo $_POST['jobOfferStatus']; ?> required>
+                            <!-- <textarea name="jobDescription" rows="4" cols="45" placeholder =""></textarea> -->
                             </div>
                         </div>
-                        <div class="form_column">
+                        <!-- <div class="form_column">
                             <label>Needed employees</label>
                             <div>
                                 <input type="number" min="0" class="input_textbox" name="neededEmployees" value ="<?php if (isset($_POST['neededEmployees'])) echo $_POST['neededEmployees']; ?>">
                             </div>
-                        </div>
+                        </div> -->
                         <div>
                             <div>
-                                <input type="submit" name="postJob" value="Create a new job posting" class="btnRegister">
+                                <input type="submit" name="postJobOffer" value="Approve/Reject an Application" class="btnRegister">
                             </div>
                         </div>
                     </div>
