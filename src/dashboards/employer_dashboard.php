@@ -213,10 +213,21 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
                 </form>
             </td> 
         </tr>
+        <tr>
+            <td>
+                <form name="showJobApplications" method="post" action="">
+                    <div class="table">
+                        <label style="font-weight:200 ;">Click to see all applications to your jobs: </label>
+                    </div>
+                    <div>
+                        <input type="submit" name="showJobApplications" value="Show All Job Applications" class="btnRegister">
+                    </div>
+                </form>
+            </td>
+        </tr>
     </table>
     <?php
-    //----------------------------------------------------------------------------------------------
-
+    //----------------------------------------------------------------------------------------------------------------------------------
     if (isset($_POST["showJobs"])) {
         $_SESSION["allJobs"] = findAllJobsForEmployer();
     }
@@ -237,7 +248,6 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
         <td>AppliedEmployees</td>
         <td>AcceptedOffer</td>
         <td>EmployerId</td>
-        
         </tr>";
             foreach ($res_jobs as $row) {
                 foreach ($row as $key => $value) {
@@ -257,6 +267,39 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
             echo "<h3 class='form-head2'>$res_jobs</h3><br>"; // Because no results found in jobs.
         }
     }
+ 
+    if (isset($_POST["showJobApplications"])) {
+        $applied_jobs = findPostedJobs();
+        if (is_array($applied_jobs)) {
+            echo "</br><div class='form-head'>List of job applications recieved:</div><br>
+                    <table> 
+                    <tr>
+                        <th styles>EmployeeId</th>
+                        <th styles>Applicant</td>
+                        <th styles>Applicant Email</td>
+                        <th styles>Applicant Telephone</td>
+                        <th styles>JobId</td>
+                        <th styles>Job</td>
+                    </tr>";
+                    foreach ($applied_jobs as $application) {
+                        foreach ($application as $key => $value) {
+                            if ($key == "EmployeeId") {
+                                echo "<tr><td>$value</td>";
+                            } else {
+                                echo "<td> $value";
+        
+                                if ($key == "Title") {
+                                    echo "</tr>";
+                                }
+                            }
+                        }
+                    }
+                    echo "</table>";
+        } else {
+            echo "<h3 class='form-head2'>$applied_jobs</h3><br>"; // Because no results found in jobs.
+        }
+    }
 ?>
+
 </body>
 </html>
