@@ -1,6 +1,6 @@
 <?php
-if (is_array($_SESSION)){
-$_SESSION=[]; // if there's an existing session clear it!
+if (is_array($_SESSION)) {
+    $_SESSION = []; // if there's an existing session clear it!
 }
 session_start(); // session will keep the desired info (on the server) when user is navigating to other pages.
 
@@ -37,7 +37,7 @@ include_once "database_operations.php"; // we include each file only once, becau
             }
             ?>
             <!--  ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
-            <div >
+            <div>
                 <label>Username</label>
                 <div>
                     <input type="text" class="input_textbox" name="userName" value="<?php if (isset($_POST['userName'])) echo $_POST['userName']; ?>">
@@ -47,64 +47,80 @@ include_once "database_operations.php"; // we include each file only once, becau
                 </div>
             </div>
 
-            <div >
+            <div>
                 <label>Password</label>
                 <div><input type="password" class="input_textbox" name="password" value=""></div>
             </div>
-            <div >
+            <div>
                 <label>Confirm Password</label>
                 <div>
                     <input type="password" class="input_textbox" name="confirm_password" value="">
                 </div>
             </div>
-            <div >
-                <label>Please select your user preference:</label>
+            <div>
+
+
+
+                <label>Please select your membership preference:</label>
                 <div>
                     <select name="MembershipType" id="membership_selection">
                         <!-- This is a drop-down menu. $_POST['MembershipType] will give you the value of selected option after form submission. -->
                         <option hidden disabled selected value> -- select an option -- </option>
-                        <option value="employer_prime">Employer Prime Membership (5 job posts/month for $50)</option>
-                        <option value="employer_gold">Employer Gold Membership (unlimited job posts/month for $100)</option>
+                        <?php
+                        $employer_categories = findAll("EmployerCategory");
+                        $employee_categories = findAll("EmployeeCategory");
 
-                        <option disabled="true" value="divider"></option> <!-- just to make a space between emloyer and employee on the drop-down menu -->
+                        foreach ($employer_categories as $row) {
+                          if($row['MaxJobs']==null){
+                            $row['MaxJobs']= "unlimited";
+                          }
+                            echo "<option value='employer_" . $row['EmployerCategoryId'] . "'>Employer " . $row['Status'] . " Membership (" . $row['MaxJobs'] . " job posts/month for $" . $row['MonthlyCharge'] . ")</option>";
+                        }
+                        echo "<option disabled='true' value='divider'></option>";
+                        
+                        foreach ($employee_categories as $row) {
+                            if($row['MaxJobs']==null){
+                                $row['MaxJobs']= "unlimited";
+                              }    
 
-                        <option value="employee_basic">employee Basic Membership (can only view jobs for free)</option>
-                        <option value="employee_prime">employee Prime Membership (apply for 5 jobs for $10/month)</option>
-                        <option value="employee_gold">employee Gold Membership (apply for any number of jobs for $20/month)</option>
+                            echo "<option value='employee_" . $row['EmployeeCategoryId'] . "'>Employee " . $row['Status'] . " Membership (" . $row['MaxJobs'] . " job posts/month for $" . $row['MonthlyCharge'] . ")</option>";
+                        }
 
+                        ?>
+                        
                     </select>
                 </div>
-                <div >
+                <div>
                     <label>Email</label>
                     <div>
                         <input type="text" class="input_textbox" name="email" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>">
                     </div>
                 </div>
-                <div >
+                <div>
                     <label>Company (optional for employees)</label>
                     <div>
                         <input type="text" class="input_textbox" name="company" value="<?php if (isset($_POST['company'])) echo $_POST['company']; ?>">
                     </div>
                 </div>
-                <div >
+                <div>
                     <label>Telephone</label>
                     <div>
                         <input type="text" class="input_textbox" name="tel" value="<?php if (isset($_POST['tel'])) echo $_POST['tel']; ?>">
                     </div>
                 </div>
-                <div >
+                <div>
                     <label>Postal Code</label>
                     <div>
                         <input type="text" class="input_textbox" name="postalCode" value="<?php if (isset($_POST['postalCode'])) echo $_POST['postalCode']; ?>">
                     </div>
                 </div>
-                <div >
+                <div>
                     <label>City</label>
                     <div>
                         <input type="text" class="input_textbox" name="city" value="<?php if (isset($_POST['city'])) echo $_POST['city']; ?>">
                     </div>
                 </div>
-                <div >
+                <div>
                     <label>Address</label>
                     <div>
                         <input type="text" class="input_textbox" name="address" value="<?php if (isset($_POST['address'])) echo $_POST['address']; ?>">
@@ -122,12 +138,12 @@ include_once "database_operations.php"; // we include each file only once, becau
     </form>
 
 
-    <div  style="text-align: center;">
+    <div style="text-align: center;">
         <p>Already on Career-Portal? &nbsp;&nbsp;
             <a href="sign_in.php">Sign in</a>
         </p>
     </div>
- 
+
 
 </body>
 
