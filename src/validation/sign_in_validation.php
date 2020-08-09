@@ -40,9 +40,11 @@ if ($valid == true && !strcasecmp($_POST['userName'], 'admin')==0) {
     $userType = $AuthenticationResult[1]; // Based on the table that the username was found in, we will have to show either Employer dashboard or Employee dashboard
     switch ($userType) {
         case "employer":
+            $_SESSION['employerId'] = $AuthenticationResult[0];
             echo "<script type='text/javascript'>window.location.href = '../dashboards/employer_dashboard.php?idh={$idh}&ajax_show=experience';</script>"; //navigate to dashboard    
             break;
         case "employee":
+            $_SESSION['employeeId'] = $AuthenticationResult[0];
             echo "<script type='text/javascript'>window.location.href = '../dashboards/employee_dashboard.php?idh={$idh}&ajax_show=experience';</script>"; //navigate to dashboard    
             break;
     }
