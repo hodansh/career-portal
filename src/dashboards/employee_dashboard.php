@@ -12,6 +12,7 @@ include_once "../validation/post_job_validation.php";
 </head>
 
 <body>
+    <a href="../index.php" style="font-weight: 600;">Sign-out</a>
     <h1>Employee Dashboard</h1>
     <div class="form-head"> Welcome <?php echo $_SESSION["userName"]; ?></div>
     <br>
@@ -46,7 +47,7 @@ include_once "../validation/post_job_validation.php";
             <td colspan="2">
                 <form name="appliedJobsList" method="post" action="">
                     <div class="table">
-                        <label style="font-weight:200 ;">Click to see all the jobs you have appleid for: </label>
+                        <label style="font-weight:200 ;">Click to see all the jobs you have applied for: </label>
                     </div>
                     <div>
                         <input type="submit" name="appliedJobsList" value="Show my Jobs" class="btnRegister">
