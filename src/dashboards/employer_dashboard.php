@@ -75,13 +75,13 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
                 </form>
             </td>
             <td>
-                <form name="postJob" method="post" action="">
+                <form name="postJobOffer" method="post" action="">
                     <!-- we handle the form after submission in formVerification.php -->
                     <div class="table">
                         <div class="form-head2">Post job offers here:</div>
                         <!--  ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
                         <?php // to show error messages about bad inputs, we would have to show them on top of the page. Error messages are created in formValidation page
-                        if (!empty($PostJobErrorMessage) && is_array($PostJobErrorMessage) && isset($_POST["postJob"])) {
+                        if (!empty($PostJobErrorMessage) && is_array($PostJobErrorMessage) && isset($_POST["postJobOffer"])) {
                         ?>
                             <div class="error-message">
                                 <?php

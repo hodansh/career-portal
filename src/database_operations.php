@@ -75,6 +75,16 @@ function AddJobPost($title, $category, $jobDescription, $neededEmployees)
     $result = mysqli_query($conn, $sql);
 }
 
+function AddJobOffer($title, $category, $jobDescription, $neededEmployees)
+{
+    $employerId = $_SESSION['employerId'];
+    $todayDate = date("Y-m-d");
+    global $conn;
+    $sql = "INSERT INTO Job (Title, Category, JobDescription, DatePosted, NeededEmployees, AppliedEmployees, AcceptedOffers, EmployerId)
+    VALUES ('$title', $category, '$jobDescription', '$todayDate', $neededEmployees, 0, 0, $employerId);";
+    $result = mysqli_query($conn, $sql);
+}
+
 // DELETE
 function DeleteJobPost($id)
 {

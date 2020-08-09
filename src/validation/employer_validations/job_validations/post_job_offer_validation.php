@@ -2,7 +2,7 @@
 include_once "../database_operations.php";
 $valid = true; // at the end we will proceed to the next page only if valid is true
 
-if(isset($_POST["postJob"]))
+if(isset($_POST["postJobOffer"]))
 {
     $PostJobErrorMessage = array();
 
@@ -14,7 +14,7 @@ if(isset($_POST["postJob"]))
     }
 
     if ($valid) {
-        $PostJobResult = AddJobPost($_POST['jobTitle'], $_POST['jobCategory'], $_POST['jobDescription'], $_POST['neededEmployees']);
+        $PostJobResult = AddJobOffer($_POST['jobTitle'], $_POST['jobCategory'], $_POST['jobDescription'], $_POST['neededEmployees']);
         
     } else { $PostJobErrorMessage[] = "All fields are required."; }
 }
