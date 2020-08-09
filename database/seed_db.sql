@@ -55,13 +55,30 @@ VALUES
 ("Fryline Attendant", 3, "Looking for fryline professionals, minimum of 5 years experience, competitive pay with benefits", "2020-05-25", 12, 33, 5, 5);
 
 INSERT INTO Payment
-	(PaymentType, WithDrawalType, Status, EmployeeId, EmployerId)
+	(PaymentType, WithDrawalType, Status,Balance, EmployeeId, EmployerId)
 VALUES
-("Credit card", "Automatic", "Active", 1, null),
-("Checking account", "Manual" , "Frozen" , 2, null),
-("Credit card", "Automatic", "Active", null, 1),
-("Checking account", "Manual", "Active", null, 2);
+("Credit card", "Automatic", "Active",1000.0, 1, null),
+("Checking account", "Manual" , "Frozen" ,900.0, 2, null),
+("Credit card", "Automatic", "Active",500.0 ,null, 1),
+("Checking account", "Manual", "Active",0 ,null, 2);
 
+INSERT INTO UserProfile
+	(FirstName, LastName, Degree, EmployeeId)
+VALUES
+("Haviva","Barton","BB",1),
+("Cadman","Flowers","AA",2),
+("William","Fisher","AC", 3),
+("Jorden","Wood","VE", 4),
+("Jarrod","Mccormick","ER",5),
+("Bernard","Gibson","DA",6),
+("Serena","Oneal","QW", 7),
+("Joshua","Fleming","RE",8),
+("Wylie","Gilbert","YE",9),
+("Anjolie","Gamble","ET",10),
+("Farrah","Dotson","LK",11),
+("Ezekiel","Griffin","SDC",12),
+("Stone","King","DSDS",13),
+("Ryan","Douglas","SSQ",14);
 
 select * from EmployerCategory;
 select * from EmployeeCategory;
@@ -75,4 +92,4 @@ SELECT * FROM JobApplication;
 SELECT * FROM JobApplication, Job WHERE JobApplication.JobId = Job.JobId && Job.EmployerId = 7;
 
 
-SELECT Employee.EmployeeId, Employee.UserName, Employee.Email, Employee.Telephone, Job.JobId, Job.JobTitle FROM JobApplication, Job, Employee WHERE JobApplication.JobId = Job.JobId AND EmployerId=7;
+SELECT Employee.EmployeeId, Employee.UserName, Employee.Email, Employee.Telephone, Job.JobId, Job.Title FROM JobApplication, Job, Employee WHERE JobApplication.JobId = Job.JobId AND EmployerId=7;
