@@ -144,6 +144,22 @@ function GetJobForEmployer($id)
     return null;
 }
 
+// GET all for employer
+function findAllJobsForEmployer()
+{
+    global $conn;
+    $employerId = $_SESSION['employerId'];
+    $sql = "SELECT * FROM Job WHERE EmployerId = $employerId;";
+    if ($result = $conn->query($sql)) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $resultArray[] = $row;
+        }
+        return $resultArray;
+    }
+    return "Table $tableName is currenty empty.";
+}
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 function createJobApplication($jobId)
 {

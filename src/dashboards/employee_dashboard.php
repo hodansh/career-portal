@@ -47,7 +47,7 @@ include_once "../validation/post_job_validation.php";
             <td colspan="2">
                 <form name="appliedJobsList" method="post" action="">
                     <div class="table">
-                        <label style="font-weight:200 ;">Click to see all the jobs you have appleid for: </label>
+                        <label style="font-weight:200 ;">Click to see all the jobs you have applied for: </label>
                     </div>
                     <div>
                         <input type="submit" name="appliedJobsList" value="Show my Jobs" class="btnRegister">
