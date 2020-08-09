@@ -87,3 +87,9 @@ select * from Job;
 SElECT * From Employee;
 SELECT * From Payment;
 SELECT * From UserProfile;
+SELECT * FROM JobApplication;
+
+SELECT * FROM JobApplication, Job WHERE JobApplication.JobId = Job.JobId && Job.EmployerId = 7;
+
+
+SELECT Employee.EmployeeId, Employee.UserName, Employee.Email, Employee.Telephone, Job.JobId, Job.JobTitle FROM JobApplication, Job, Employee WHERE JobApplication.JobId = Job.JobId AND EmployerId=7;
