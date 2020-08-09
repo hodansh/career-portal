@@ -54,9 +54,37 @@ VALUES
 ("Dishwasher", 3, "Requirements : 3 or more years of experience in washing dishes. Must be able to work weekends and weekdays, day and night.", "2020-04-30", 10, 55, 1, 4),
 ("Fryline Attendant", 3, "Looking for fryline professionals, minimum of 5 years experience, competitive pay with benefits", "2020-05-25", 12, 33, 5, 5);
 
+INSERT INTO Payment
+	(PaymentType, WithDrawalType, Status, EmployeeId, EmployerId)
+VALUES
+("Credit card", "Automatic", "Active", 1, null),
+("Checking account", "Manual" , "Frozen" , 2, null),
+("Credit card", "Automatic", "Active", null, 1),
+("Checking account", "Manual", "Active", null, 2);
+
+INSERT INTO UserProfile
+	(FirstName, LastName, Degree, EmployeeId)
+VALUES
+("Haviva","Barton","BB",1),
+("Cadman","Flowers","AA",2),
+("William","Fisher","AC", 3),
+("Jorden","Wood","VE", 4),
+("Jarrod","Mccormick","ER",5),
+("Bernard","Gibson","DA",6),
+("Serena","Oneal","QW", 7),
+("Joshua","Fleming","RE",8),
+("Wylie","Gilbert","YE",9),
+("Anjolie","Gamble","ET",10),
+("Farrah","Dotson","LK",11),
+("Ezekiel","Griffin","SDC",12),
+("Stone","King","DSDS",13),
+("Ryan","Douglas","SSQ",14),
+("Oprah","Horne","BF",15);
 
 select * from EmployerCategory;
 select * from EmployeeCategory;
 select * from Employer;
 select * from Job;
 SElECT * From Employee;
+SELECT * From Payment;
+SELECT * From UserProfile;
