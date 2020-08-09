@@ -41,7 +41,7 @@ include_once "../database_operations.php";
         <tr>
             <td>
 
-                <div >
+                <div>
                     <label>Search for a user:</label>
                     <div>
                         <select name="searchCriterion" id="searchCriterion">
@@ -58,7 +58,7 @@ include_once "../database_operations.php";
                         </select>
                     </div>
                 </div>
-                <div >
+                <div>
 
                     <div>
                         <input type="text" class="input_textbox" name="searchString" value="<?php if (isset($_POST['searchString'])) echo $_POST['searchString']; ?>">
@@ -117,17 +117,30 @@ include_once "../database_operations.php";
                 </form>
             </td>
         </tr>
-    
+
         <tr>
             <td colspan="2">
                 <form name="showAll" method="post" action="">
                     <div class="table">
-                        <label style="font-weight:200 ;">Click on this button to see all the users of the system: </label>
+                        <label style="font-weight:200 ;">Click to see all the users: </label>
                     </div>
                     <div>
                         <input type="submit" name="showAll" value="Show All Users" class="btnRegister">
                     </div>
                 </form>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <form name="showJobs" method="post" action="">
+                    <div class="table">
+                        <label style="font-weight:200 ;">Click to see all the jobs: </label>
+                    </div>
+                    <div>
+                        <input type="submit" name="showJobs" value="Show All the Jobs" class="btnRegister">
+                    </div>
+                </form>
+
 
                 <!-- all the results for any of the buttons will be shown here: -->
                 <?php
@@ -139,6 +152,7 @@ include_once "../database_operations.php";
                 if (isset($_SESSION["activationResult"])) { //showing the results for activate/deactivate user:
                     echo "<div class='form-head2'>" . $_SESSION["activationResult"] . "</div>";
                 }
+
 
                 // ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -280,6 +294,45 @@ include_once "../database_operations.php";
                         echo "</table>";
                     } else {
                         echo "<h3 class='form-head2'>$search_results_employees</h3><br>"; // Because no results found in employees.  
+                    }
+                }
+                //--------------------------------------------------------------------------------------------------------------------------------
+
+                if (isset($_SESSION["allJobs"])) { //show all the jobs:
+                    $res_jobs = $_SESSION["allJobs"];
+
+                    if (is_array($res_jobs)) {
+
+                        echo "<div class='form-head2'>All the entries in Job table:</div><br>
+        
+        <table> <tr>
+        <td styles>JobId</td>
+        <td>Title</td>
+        <td>Category</td>
+        <td>JobDescription</td>
+        <td>DatePosted</td>
+        <td>NeededEmployees</td>
+        <td>AppliedEmployees</td>
+        <td>AcceptedOffer</td>
+        <td>EmployerId</td>
+        
+        </tr>";
+                        foreach ($res_jobs as $row) {
+                            foreach ($row as $key => $value) {
+                                if ($key == "JobId") {
+                                    echo "<tr><td>$value";
+                                } else {
+                                    echo "<td> $value";
+
+                                    if ($key == "EmployerId") {
+                                        echo "</tr>";
+                                    }
+                                }
+                            }
+                        }
+                        echo "</table>";
+                    } else {
+                        echo "<h3 class='form-head2'>$res_jobs</h3><br>"; // Because no results found in jobs.
                     }
                 }
 

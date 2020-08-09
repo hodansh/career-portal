@@ -1,5 +1,5 @@
 <?php session_start();
-include_once "../validation/post_job_validation.php"; 
+include_once "../validation/post_job_validation.php";
 ?>
 <html lang="en">
 
@@ -13,11 +13,12 @@ include_once "../validation/post_job_validation.php";
 
 <body>
     <h1>Employer Dashboard</h1>
-    <h1> Welcome <?php echo $_SESSION["userName"]; ?>
+    <div class="form-head"> Welcome <?php echo $_SESSION["userName"]; ?></div>
+    <br>
     <form name="postJob" method="post" action="">
         <!-- we handle the form after submission in formVerification.php -->
         <div class="table">
-            <div class="form-head">Post job here:</div>
+            <div class="form-head2">Post jobs here:</div>
             <!--  ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
             <?php // to show error messages about bad inputs, we would have to show them on top of the page. Error messages are created in formValidation page
             if (!empty($PostJobErrorMessage) && is_array($PostJobErrorMessage) && isset($_POST["postJob"])) {
@@ -46,15 +47,15 @@ include_once "../validation/post_job_validation.php";
                 </div>
             </div>
             <div class="form_column">
-                <label>Job Desription</label>
+                <label>Job Description</label>
                 <div>
-                <textarea name="jobDescription" rows="4" cols="50" value="asdasd"></textarea>
+                    <textarea class="input_textbox" name="jobDescription" value=""></textarea>
                 </div>
             </div>
             <div class="form_column">
                 <label>Needed employees</label>
                 <div>
-                    <input type="number" class="input_textbox" name="neededEmployees" value="1">
+                    <input type="number" class="input_textbox" name="neededEmployees" value="">
                 </div>
             </div>
             <div>

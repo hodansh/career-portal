@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 $host = "database"; // service name from docker-compose.yml
 $user = "devuser";
 $password = "devpass";
@@ -21,16 +23,17 @@ function userExists($userName_input, $email_input) // To check if a username/ema
     $email_taken = false;
     global $conn; // we need to globalize $conn inside our function, otherwise function will not have access to it and will give errors.
 
-    $sql_u_on_employer = "SELECT UserName FROM Employer WHERE UserName='$userName_input'"; // we check if the username input by user is found on the table
-    $sql_u_on_employee = "SELECT UserName FROM Employee WHERE UserName='$userName_input'";
+    $sql_u_on_employer = "SELECT * FROM Employer WHERE UserName='$userName_input'"; // we check if the username input by user is found on the table
+    $sql_u_on_employee = "SELECT * FROM Employee WHERE UserName='$userName_input'";
     $res_u_on_employer = mysqli_query($conn, $sql_u_on_employer);
     $res_u_on_employee = mysqli_query($conn, $sql_u_on_employee);
+
     if (mysqli_num_rows($res_u_on_employer) > 0 or mysqli_num_rows($res_u_on_employee) > 0) {  //if the username is found, the number of rows for the result would not be zero
         $username_taken = true;
     }
 
-    $sql_e_on_employer = "SELECT UserName FROM Employer WHERE Email='$email_input'"; // we check if the email input by user is found on the table
-    $sql_e_on_employee = "SELECT UserName FROM Employee WHERE Email='$email_input'";
+    $sql_e_on_employer = "SELECT * FROM Employer WHERE Email='$email_input'"; // we check if the email input by user is found on the table
+    $sql_e_on_employee = "SELECT * FROM Employee WHERE Email='$email_input'";
     $res_e_on_employer = mysqli_query($conn, $sql_e_on_employer);
     $res_e_on_employee = mysqli_query($conn, $sql_e_on_employee);
     if (mysqli_num_rows($res_e_on_employer) > 0 or mysqli_num_rows($res_e_on_employee) > 0) {  //if the email is found, the number of rows for the result would not be zero
@@ -69,6 +72,21 @@ function AddJobPost($title, $category, $jobDescription, $neededEmployees)
     $result = mysqli_query($conn, $sql);
 }
 
+function createJobApplication($jobId)
+{
+    global $conn;
+    $employeeId = $_SESSION['employeeId'];
+    $sql = "INSERT INTO JobApplication (EmployeeId, JobId, Status)
+    VALUES ($employeeId, $jobId, 'active');";
+    if ($result = mysqli_query($conn, $sql)) {
+        $sql = "UPDATE Job SET AppliedEmployees = AppliedEmployees+1 WHERE JobId=$jobId; ";
+        mysqli_query($conn, $sql);
+        return "Job Application successfully created.";
+    } else {
+        return  "Job application cannot be created";
+    }
+}
+
 function Authentication($userNameInput, $passwordInput)
 {
     $isMatched = false;
@@ -79,8 +97,8 @@ function Authentication($userNameInput, $passwordInput)
             // example: strcamsecmp(ABC,abc) will return 0
             $isMatched = True;
             $userType = "employer";
-            if ($match_employer[10]== "inactive"){
-                $inactive=true;
+            if ($match_employer[10] == "inactive") {
+                $inactive = true;
             }
             return [$isMatched, $userType, $match_employer[1], $inactive];
         }
@@ -91,8 +109,8 @@ function Authentication($userNameInput, $passwordInput)
             // example: strcamsecmp(ABC,abc) will return 0
             $isMatched = True;
             $userType = "employee";
-            if ($match_employee[9]== "inactive"){
-                $inactive=true;
+            if ($match_employee[9] == "inactive") {
+                $inactive = true;
             }
             return [$isMatched, $userType, $match_employee[1], $inactive];
         }
@@ -133,8 +151,8 @@ function findAll($tableName)
     global $conn;
     $sql = "SELECT * FROM $tableName;";
     if ($result = $conn->query($sql)) {
-        while ($row = mysqli_fetch_assoc($result)){
-            $resultArray[] = $row;    
+        while ($row = mysqli_fetch_assoc($result)) {
+            $resultArray[] = $row;
         }
         return $resultArray;
     }
@@ -147,8 +165,8 @@ function findUserByCriterion($searchString, $criterion, $tableName)
     $sql = "SELECT * FROM $tableName WHERE $criterion=\"$searchString\" ORDER BY $criterion;";
     if ($result = $conn->query($sql)) {
         if (mysqli_num_rows($result) > 0) { // if at least one username was matched
-            while ($row = mysqli_fetch_assoc($result)){
-                $resultArray[] = $row;    
+            while ($row = mysqli_fetch_assoc($result)) {
+                $resultArray[] = $row;
             }
             return $resultArray;
         }
@@ -183,10 +201,9 @@ function activateUser($userNameInput)
         $message = "The user name you entered cannot be found.";
         return $message;
     }
-    if(findAnEmployer($userNameInput) != "not found!"){
-    $sql = "UPDATE Employer SET Status = 'active'  WHERE UserName= '$userNameInput';";
-    }
-    else{
+    if (findAnEmployer($userNameInput) != "not found!") {
+        $sql = "UPDATE Employer SET Status = 'active'  WHERE UserName= '$userNameInput';";
+    } else {
         $sql = "UPDATE Employee SET Status = 'active'  WHERE UserName= '$userNameInput';";
     }
     if ($result = $conn->query($sql)) {
@@ -201,17 +218,39 @@ function deactivateUser($userNameInput)
         $message = "The user name you entered cannot be found.";
         return $message;
     }
-    if(findAnEmployer($userNameInput) != "not found!"){
+    if (findAnEmployer($userNameInput) != "not found!") {
         $sql = "UPDATE Employer SET Status = 'inactive'  WHERE UserName= '$userNameInput';";
-        }
-        else{
-            $sql = "UPDATE Employee SET Status = 'inactive'  WHERE UserName= '$userNameInput';";
-        }
+    } else {
+        $sql = "UPDATE Employee SET Status = 'inactive'  WHERE UserName= '$userNameInput';";
+    }
     if ($result = $conn->query($sql)) {
         $message = "$userNameInput was successfully deactivated.";
     }
     return $message;
 }
+function findAppliedJobs($employeeId)
+{
+    global $conn;
+    $sql = "SELECT JobId FROM JobApplication WHERE EmployeeId=$employeeId;";
+    if ($result = $conn->query($sql)) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $JobIdsArray[] = $row;
+        }
+
+        foreach ($JobIdsArray as $row) {
+            foreach ($row as $jid) {
+                $sql = "SELECT * FROM Job WHERE JobId=$jid;";
+                if ($result = $conn->query($sql)) {
+                    $resultArray[] = $result;
+                }
+            }
+        }
+
+        return $resultArray;
+    }
+    return "You have not applied for any jobs yet!";
+}
+
 
 
 function connection_close($conn) // This can be used to close the connection, not the best approach! so we will have to figure out about the best way of doing it.
