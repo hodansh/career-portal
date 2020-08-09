@@ -64,36 +64,17 @@ VALUES
     ("Credit card", "Automatic", "Active", null, 1),
     ("Checking account", "Manual", "Active", null, 2);
 
-INSERT INTO UserProfile
-    (FirstName, LastName, Degree, EmployeeId)
-VALUES
-    ("Haviva", "Barton", "BB", 1),
-    ("Cadman", "Flowers", "AA", 2),
-    ("William", "Fisher", "AC", 3),
-    ("Jorden", "Wood", "VE", 4),
-    ("Jarrod", "Mccormick", "ER", 5),
-    ("Bernard", "Gibson", "DA", 6),
-    ("Serena", "Oneal", "QW", 7),
-    ("Joshua", "Fleming", "RE", 8),
-    ("Wylie", "Gilbert", "YE", 9),
-    ("Anjolie", "Gamble", "ET", 10),
-    ("Farrah", "Dotson", "LK", 11),
-    ("Ezekiel", "Griffin", "SDC", 12),
-    ("Stone", "King", "DSDS", 13),
-    ("Ryan", "Douglas", "SSQ", 14),
-    ("Oprah", "Horne", "BF", 15);
 
-select *
-from EmployerCategory;
-select *
-from EmployeeCategory;
-select *
-from Employer;
-select *
-from Job;
-SElECT *
-From Employee;
-SELECT *
-From Payment;
-SELECT *
-From UserProfile;
+select * from EmployerCategory;
+select * from EmployeeCategory;
+select * from Employer;
+select * from Job;
+SElECT * From Employee;
+SELECT * From Payment;
+SELECT * From UserProfile;
+SELECT * FROM JobApplication;
+
+SELECT * FROM JobApplication, Job WHERE JobApplication.JobId = Job.JobId && Job.EmployerId = 7;
+
+
+SELECT Employee.EmployeeId, Employee.UserName, Employee.Email, Employee.Telephone, Job.JobId, Job.JobTitle FROM JobApplication, Job, Employee WHERE JobApplication.JobId = Job.JobId AND EmployerId=7;
