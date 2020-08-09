@@ -72,7 +72,7 @@ CREATE TABLE JobApplication
 (
     EmployeeId INT NOT NULL,
     JobId INT NOT NULL,
-    Status VARCHAR(8) NOT NULL,
+    Status VARCHAR(10) NOT NULL,
     PRIMARY KEY (EmployeeId, JobId),
     FOREIGN KEY (EmployeeId) REFERENCES Employee (EmployeeId),
     FOREIGN KEY (JobId) REFERENCES Job (JobId)
@@ -85,7 +85,7 @@ CREATE TABLE JobOffer
     Status VARCHAR(8) NOT NULL,
     CreationDate DATE NOT NULL,
     PRIMARY KEY (EmployeeId, JobId),
-    FOREIGN KEY (EmployeeId) REFERENCES Employee (EmployeeId),
+    FOREIGN KEY (EmployeeId) REFERENCES Employee(EmployeeId),
     FOREIGN KEY (JobId) REFERENCES Job (JobId)
 );
 
@@ -94,7 +94,7 @@ CREATE TABLE UserProfile
 	FirstName VARCHAR(100),
     LastName VARCHAR(100),
     Degree VARCHAR(100),
-    EmployeeID INT NOT NULL,
+    EmployeeId INT NOT NULL,
     PRIMARY KEY(FirstName,LastName),
     FOREIGN KEY (EmployeeId) REFERENCES Employee(EmployeeId)
 );
@@ -103,11 +103,12 @@ CREATE TABLE Payment
 (
 	PaymentID INT NOT NULL  AUTO_INCREMENT,
 	PaymentType VARCHAR(100),
-    WithDrawalType VARCHAR(100),
-    Status VARCHAR(100),
-    EmployeeId INT,
-    EmployerId INT,
-    primary key(PaymentID),
-    FOREIGN KEY (EmployeeId) REFERENCES Employee(EmployeeID),
-    FOREIGN KEY (EmployerId) REFERENCES Employer(EmployerID)
+	WithDrawalType VARCHAR(100),
+	Status VARCHAR(100),
+    Balance DECIMAL,
+	EmployeeId INT,
+	EmployerId INT,
+	primary key(PaymentID),
+	FOREIGN KEY (EmployeeId) REFERENCES Employee(EmployeeID),
+	FOREIGN KEY (EmployerId) REFERENCES Employer(EmployerID)
 );
