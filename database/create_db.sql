@@ -101,14 +101,15 @@ CREATE TABLE UserProfile
 
 CREATE TABLE Payment
 (
-	PaymentID INT NOT NULL  AUTO_INCREMENT,
+	PaymentID INT NOT NULL AUTO_INCREMENT,
+    AccountNumber VARCHAR(100),
 	PaymentType VARCHAR(100),
 	WithDrawalType VARCHAR(100),
 	Status VARCHAR(100),
-    Balance DECIMAL,
+    Balance DECIMAL(8, 2),
 	EmployeeId INT,
 	EmployerId INT,
-	primary key(PaymentID),
+	PRIMARY KEY (PaymentID),
 	FOREIGN KEY (EmployeeId) REFERENCES Employee(EmployeeID),
 	FOREIGN KEY (EmployerId) REFERENCES Employer(EmployerID)
 );

@@ -99,3 +99,9 @@ table, th, td {
     margin-left: auto;
     margin-right: auto;
 }
+
+.links {
+    display: inline;
+    font-weight: 600;
+    padding: 10px;
+}
