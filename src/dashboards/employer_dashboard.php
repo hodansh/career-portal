@@ -16,11 +16,11 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
 </head>
 
 <body>
-    <a href="../payments/payments.php" class="links">Payments</a>
+    <a href="../payments/payments.php" style="font-weight: 600; font-size: large;">Payments</a>
     <div>
-    <a href="../index.php" style="font-weight: 600; font-size: large; ">Sign-out</a>
+    <a href="../index.php" style="font-weight: 600; font-size: large;">Sign-out</a>
     <br><br>
-    <a href="./employer_profile.php" style="font-weight: 600; font-size: large; ">Edit Profile</a>
+    <a href="./employer_profile.php" style="font-weight: 600; font-size: large;">Edit Profile</a>
 
     <form name="deleteAccount" method="post" action="">
         <div>
