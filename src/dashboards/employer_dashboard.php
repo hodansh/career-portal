@@ -72,7 +72,7 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
             </td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td>
                 <form name="postJob" method="post" action="">
                     <!-- we handle the form after submission in formVerification.php -->
                     <div class="table">
@@ -126,7 +126,7 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
                     </div>
                 </form>
             </td>
-        <tr>
+        
             <td>
                 <form name="postJobOffer" method="post" action="">
                     <!-- we handle the form after submission in formVerification.php -->
@@ -175,6 +175,7 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
                     </div>
                 </form>
             </td>
+            <tr>
             <td>
                 <form name="getJob" method="post" action="">
                     <!-- we handle the form after submission in formVerification.php -->
