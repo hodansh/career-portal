@@ -67,12 +67,26 @@ function AddEmployee($userName, $userPassword, $Email, $Telephone, $PostalCode, 
 // POST
 function AddJobPost($title, $category, $jobDescription, $neededEmployees)
 {
-    $employerId = $_SESSION['employerId'];
-    $todayDate = date("Y-m-d");
     global $conn;
+    $todayDate = date("Y-m-d");
+    $employerId = $_SESSION['employerId'];
+    $sql = "SELECT EmployerCategory.MaxJobs FROM Employer, EmployerCategory WHERE Employer.EmployerCategoryId = EmployerCategory.EmployerCategoryId AND EmployerId = $employerId";
+    
+    if ($result = $conn->query($sql)){
+        $row = $result->fetch_row();
+        $maxJobsLimit = $row[0];
+    }
+
+    if(is_array(findAllJobsForEmployer())){
+        if(isset($maxJobsLimit) && count(findAllJobsForEmployer())>=$maxJobsLimit){
+            return "Sorry! Based on your subscription, you cannot apply for more than $maxJobsLimit jobs.";
+        }
+    }
+    
     $sql = "INSERT INTO Job (Title, Category, JobDescription, DatePosted, NeededEmployees, AppliedEmployees, AcceptedOffers, EmployerId)
-    VALUES ('$title', $category, '$jobDescription', '$todayDate', $neededEmployees, 0, 0, $employerId);";
+        VALUES ('$title', $category, '$jobDescription', '$todayDate', $neededEmployees, 0, 0, $employerId);";
     $result = mysqli_query($conn, $sql);
+    return "Job Application successfully created.";
 }
 
 // DELETE
@@ -180,6 +194,17 @@ function createJobApplication($jobId)
 {
     global $conn;
     $employeeId = $_SESSION['employeeId'];
+    $sql = "SELECT EmployeeCategory.MaxJobs FROM Employee, EmployeeCategory WHERE Employee.EmployeeCategoryId = EmployeeCategory.EmployeeCategoryId AND EmployeeId = $employeeId";
+    
+    if ($result = $conn->query($sql)){
+    $row = $result->fetch_row();
+     $maxJobsLimit= $row[0];
+    }
+    if(is_array(findAppliedJobs($employeeId))){
+    if(isset($maxJobsLimit) && count(findAppliedJobs($employeeId))>=$maxJobsLimit){
+        return "Sorry! Based on your subscription, you cannot apply for more than $maxJobsLimit jobs.";
+    }
+}
     $sql = "INSERT INTO JobApplication (EmployeeId, JobId, Status)
     VALUES ($employeeId, $jobId, 'active');";
     if ($result = mysqli_query($conn, $sql)) {
@@ -189,6 +214,32 @@ function createJobApplication($jobId)
     } else {
         return  "Job application cannot be created";
     }
+}
+
+function findAppliedJobs($employeeId)
+{
+    global $conn;
+    $sql = "SELECT JobId FROM JobApplication WHERE EmployeeId=$employeeId;";
+    if ($result = $conn->query($sql)) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $JobIdsArray[] = $row;
+        }
+        
+        if(isset($JobIdsArray)){
+            foreach ($JobIdsArray as $row) {
+            foreach ($row as $jid) {
+                $sql = "SELECT * FROM Job WHERE JobId=$jid;";
+                if ($result = $conn->query($sql)) {
+                    $resultArray[] = $result;
+                }
+            }
+        }
+
+        return $resultArray;
+    }
+}
+
+    return "You have not applied for any jobs yet!";
 }
 
 // GET all for specific employer
@@ -350,29 +401,9 @@ function deactivateUser($userNameInput)
     }
     return $message;
 }
-function findAppliedJobs($employeeId)
-{
-    global $conn;
-    $sql = "SELECT JobId FROM JobApplication WHERE EmployeeId=$employeeId;";
-    if ($result = $conn->query($sql)) {
-        while ($row = mysqli_fetch_assoc($result)) {
-            $JobIdsArray[] = $row;
-        }
 
-        foreach ($JobIdsArray as $row) {
-            foreach ($row as $jid) {
-                $sql = "SELECT * FROM Job WHERE JobId=$jid;";
-                if ($result = $conn->query($sql)) {
-                    $resultArray[] = $result;
-                }
-            }
-        }
 
-        return $resultArray;
-    }
-    return "You have not applied for any jobs yet!";
-}
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function addCategory($MembershipType,$Status,$MonthlyCharge,$MaxJobs){
     global $conn;
     $sql = "INSERT INTO $MembershipType (Status, MonthlyCharge, MaxJobs) 

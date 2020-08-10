@@ -1,3 +1,8 @@
+INSERT INTO Administration
+	(UserName, UserPassword)
+VALUES
+	("admin","admin");
+    
 INSERT INTO EmployerCategory
     (Status, MonthlyCharge, MaxJobs)
 VALUES
@@ -64,6 +69,14 @@ VALUES
 ("Credit Card", "Automatic", "Active", 500.0, null, 1),
 ("Checking Account", "Manual", "Active", 0, null, 2);
 
+INSERT INTO Charge
+	(PaymentId, Status,Balance,OutStandingDate)
+VALUES
+    (1,"Active",0, null),
+    (2,"Frozen" ,200.0,"2016-01-01"),
+    (3,"Active",100.0, "2019-11-30"),
+    (4,"Active",0 , null);
+    
 INSERT INTO UserProfile
 	(FirstName, LastName, Degree, EmployeeId)
 VALUES

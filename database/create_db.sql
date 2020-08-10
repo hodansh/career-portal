@@ -2,6 +2,13 @@ DROP DATABASE IF EXISTS test_db;
 CREATE DATABASE test_db;
 USE test_db;
 
+CREATE TABLE Administration
+(
+	AdministrationId INT NOT NULL AUTO_INCREMENT,
+    UserName VARCHAR(100) UNIQUE NOT NULL,
+    UserPassword VARCHAR(100) NOT NULL,
+    PRIMARY KEY (AdministrationId)
+);
 CREATE TABLE EmployeeCategory
 (
     EmployeeCategoryId INT NOT NULL AUTO_INCREMENT,
