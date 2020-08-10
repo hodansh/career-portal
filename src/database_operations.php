@@ -415,6 +415,30 @@ function addCategory($MembershipType,$Status,$MonthlyCharge,$MaxJobs){
 
 }
 
+// Payments
+function addPaymentMethod($accountNumber, $paymentType, $withdrawalType)
+{
+    $employerId = $_SESSION['employerId'];
+    // $todayDate = date("Y-m-d");
+    global $conn;
+    $sql = "INSERT INTO Payment (AccountNumber, PaymentType, WithDrawalType, EmployerId)
+    VALUES ('$accountNumber', '$paymentType', '$withdrawalType', $employerId);";
+    $result = mysqli_query($conn, $sql);
+}
+
+function findAllPaymentMethods()
+{
+    global $conn;
+    $employerId = $_SESSION['employerId'];
+    $sql = "SELECT * FROM Payment WHERE EmployerId = $employerId;";
+    if ($result = $conn->query($sql)) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $resultArray[] = $row;
+        }
+        return $resultArray;
+    }
+    return "Table is currenty empty.";
+}
 
 function connection_close($conn) // This can be used to close the connection, not the best approach! so we will have to figure out about the best way of doing it.
 {
