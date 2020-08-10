@@ -1,12 +1,12 @@
 USE test_db;
 
--- INSERT INTO JobApplication
--- (EmployeeId, JobId, Status)
+-- INSERT INTO Payment
+-- (AccountNumber, PaymentType, WithDrawalType, EmployerId)
 -- VALUES
--- (1, 13, "Applied");
+-- ("1111-1111-1111-1112", "Credit Card", "Automatic", 9);
 
 SELECT *
-FROM JobOffer;
+FROM Payment;
 
--- ALTER TABLE JobOffer
--- MODIFY COLUMN Status VARCHAR(8);
+-- ALTER TABLE Payment
+-- MODIFY Balance DECIMAL(8, 2);

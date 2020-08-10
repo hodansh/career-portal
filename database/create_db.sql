@@ -12,7 +12,7 @@ CREATE TABLE Administration
 CREATE TABLE EmployeeCategory
 (
     EmployeeCategoryId INT NOT NULL AUTO_INCREMENT,
-    Status VARCHAR(100) NOT NULL,
+    Status VARCHAR(100) NOT NULL UNIQUE,
     MonthlyCharge DECIMAL NOT NULL,
     MaxJobs VARCHAR(100),
     PRIMARY KEY (EmployeeCategoryId)
@@ -21,7 +21,7 @@ CREATE TABLE EmployeeCategory
 CREATE TABLE EmployerCategory
 (
     EmployerCategoryId INT NOT NULL AUTO_INCREMENT,
-    Status VARCHAR(100) NOT NULL,
+    Status VARCHAR(100) NOT NULL UNIQUE,
     MonthlyCharge DECIMAL NOT NULL,
     MaxJobs VARCHAR(100),
     PRIMARY KEY (EmployerCategoryId)
@@ -108,23 +108,15 @@ CREATE TABLE UserProfile
 
 CREATE TABLE Payment
 (
-	PaymentID INT NOT NULL  AUTO_INCREMENT,
+	PaymentID INT NOT NULL AUTO_INCREMENT,
+    AccountNumber VARCHAR(100),
 	PaymentType VARCHAR(100),
 	WithDrawalType VARCHAR(100),
+	Status VARCHAR(100),
+    Balance DECIMAL(8, 2),
 	EmployeeId INT,
 	EmployerId INT,
-	primary key(PaymentID),
-	FOREIGN KEY (EmployeeId) REFERENCES Employee(EmployeeId),
-	FOREIGN KEY (EmployerId) REFERENCES Employer(EmployerId)
+	PRIMARY KEY (PaymentID),
+	FOREIGN KEY (EmployeeId) REFERENCES Employee(EmployeeID),
+	FOREIGN KEY (EmployerId) REFERENCES Employer(EmployerID)
 );
-
-CREATE TABLE Charge
-(	
-	ChargeId INT NOT NULL AUTO_INCREMENT,
-	PaymentId INT NOT NULL,
-    Status VARCHAR(100),
-    Balance DECIMAL,
-	OutstandingDate DATE,
-    PRIMARY KEY(ChargeId),
-    FOREIGN KEY(PaymentId) REFERENCES Payment(PaymentId)
-    );

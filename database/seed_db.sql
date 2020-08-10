@@ -62,13 +62,12 @@ VALUES
     ("Fryline Attendant", 3, "Looking for fryline professionals, minimum of 5 years experience, competitive pay with benefits", "2020-05-25", 12, 33, 5, 5);
 
 INSERT INTO Payment
-	(PaymentType, WithDrawalType, EmployeeId, EmployerId)
+	(AccountNumber, PaymentType, WithDrawalType, Status, Balance, EmployeeId, EmployerId)
 VALUES
-("Credit card", "Automatic", 1, null),
-("Checking account", "Manual", 2, null),
-("Credit card", "Automatic", null, 1),
-("Checking account", "Manual",null, 2);
-
+("1111-1111-1111-1111", "Credit Card", "Automatic", "Active", 1000.0, 1, null),
+("Checking Account", "Manual" , "Frozen", 900.0, 2, null),
+("Credit Card", "Automatic", "Active", 500.0, null, 1),
+("Checking Account", "Manual", "Active", 0, null, 2);
 
 INSERT INTO Charge
 	(PaymentId, Status,Balance,OutStandingDate)

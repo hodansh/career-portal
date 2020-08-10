@@ -129,17 +129,19 @@ VALUES
 ("Checking account", "Manual", "Active", 4, null);
 
 -- Report of all users by the administrator for employers or employees (Name, email, category, status, balance.
-Select UserProfile.FirstName, UserProfile.LastName, Employee.Email, EmployeeCategory.Status, Payment.balance
-From Employee, UserProfile, EmployeeCategory, Payment
-Where Employee.EmployeeId = UserProfile.EmployeeId and EmployeeCategory.EmployeeCategoryId = Employee.EmployeeCategoryId and Employee.EmployeeId = Payment.EmployeeId ;
+Select UserProfile.FirstName, UserProfile.LastName, Employee.Email, EmployeeCategory.Status, Charge.balance
+From Employee, UserProfile, EmployeeCategory, Payment, Charge
+Where Employee.EmployeeId = UserProfile.EmployeeId and EmployeeCategory.EmployeeCategoryId = Employee.EmployeeCategoryId and Employee.EmployeeId = Payment.EmployeeId and Payment.PaymentId = Charge.PaymentId ;
 
-Select Employer.Company, Employer.Email, EmployerCategory.Status, Payment.balance
-From Employer, EmployerCategory, Payment
-Where EmployerCategory.EmployerCategoryId = Employer.EmployerCategoryId and Employer.EmployerId = Payment.EmployerId ;
+Select Employer.Company, Employer.Email, EmployerCategory.Status, Charge.balance
+From Employer, EmployerCategory, Payment, Charge
+Where EmployerCategory.EmployerCategoryId = Employer.EmployerCategoryId and Employer.EmployerId = Payment.EmployerId and  Payment.PaymentId = Charge.PaymentId;
 
 -- Report of all outstanding balance accounts (User name, email, balance, since when the account is suffering). 
-Select Employee.UserName, Employee.Email, Payment.balance
-From Employee, Payment
-Where Payment.balance > 0 and Employee.EmployeeId = Payment.EmployeeId;
- 
-   
+Select Employee.UserName, Employee.Email, Charge.balance, Charge.OutStandingDate
+From Employee, Payment, Charge
+Where Charge.balance > 0 and Employee.EmployeeId = Payment.EmployeeId and   Payment.PaymentId = Charge.PaymentId;
+
+Select Employer.UserName, Employer.Email, Charge.balance, Charge.OutStandingDate
+From Employer, Payment, Charge
+Where Charge.balance > 0 and Employer.EmployerId = Payment.EmployerId and   Payment.PaymentId = Charge.PaymentId;
