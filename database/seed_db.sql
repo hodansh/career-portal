@@ -1,4 +1,4 @@
-INSERT INTO Adminstration
+INSERT INTO Administration
 	(UserName, UserPassword)
 VALUES
 	("admin","admin");
