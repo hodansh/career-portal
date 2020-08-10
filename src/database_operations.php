@@ -180,8 +180,12 @@ function AddJobOffer($jobId, $employeeId, $jobOfferStatus)
     $todayDate = date("Y-m-d");
     global $conn;
     $sql = "INSERT INTO JobOffer (EmployeeId, JobId, Status, CreationDate)
-    VALUES ($jobId, $employeeId, '$jobOfferStatus', '$todayDate');";
+    VALUES ($employeeId, $jobId,'$jobOfferStatus', '$todayDate');";
     $result = mysqli_query($conn, $sql);
+    if ($jobOfferStatus == "Approved") {
+        $sql = "UPDATE Job SET AcceptedOffers = AcceptedOffers +1 WHERE JobId=$jobId; ";
+        $result = mysqli_query($conn, $sql);
+    }
 }
 
 

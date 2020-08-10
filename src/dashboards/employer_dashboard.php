@@ -180,9 +180,9 @@ if(isset($_POST['deleteAccount'])){
                         <div class="form_column">
                             <div>
                                 <label for="approve">Approve: </label>
-                                <input type="radio" name="jobOfferStatus" id="approve" value="Approved" required>
+                                <input type="radio" name="jobOfferStatus" value="Approved" required>
                                 <label for="reject">Reject: </label>
-                                <input type="radio" name="jobOfferStatus" id="reject" value="Rejected" required>
+                                <input type="radio" name="jobOfferStatus" value="Rejected" required>
                             </div>
                         </div>
                         <div>
