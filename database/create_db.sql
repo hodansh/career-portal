@@ -89,8 +89,8 @@ CREATE TABLE JobOffer
 (
     EmployeeId INT NOT NULL,
     JobId INT NOT NULL,
-    Status SMALLINT NOT NULL,
-    CreationDate date NOT NULL,
+    Status VARCHAR(8) NOT NULL,
+    CreationDate DATE NOT NULL,
     PRIMARY KEY (EmployeeId, JobId),
     FOREIGN KEY (EmployeeId) REFERENCES Employee(EmployeeId),
     FOREIGN KEY (JobId) REFERENCES Job (JobId)
