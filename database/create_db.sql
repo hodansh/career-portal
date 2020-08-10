@@ -2,6 +2,13 @@ DROP DATABASE IF EXISTS test_db;
 CREATE DATABASE test_db;
 USE test_db;
 
+CREATE TABLE Administration
+(
+	AdministrationId INT NOT NULL AUTO_INCREMENT,
+    UserName VARCHAR(100) UNIQUE NOT NULL,
+    UserPassword VARCHAR(100) NOT NULL,
+    PRIMARY KEY (AdministrationId)
+);
 CREATE TABLE EmployeeCategory
 (
     EmployeeCategoryId INT NOT NULL AUTO_INCREMENT,
@@ -82,8 +89,8 @@ CREATE TABLE JobOffer
 (
     EmployeeId INT NOT NULL,
     JobId INT NOT NULL,
-    Status SMALLINT NOT NULL,
-    CreationDate date NOT NULL,
+    Status VARCHAR(8) NOT NULL,
+    CreationDate DATE NOT NULL,
     PRIMARY KEY (EmployeeId, JobId),
     FOREIGN KEY (EmployeeId) REFERENCES Employee(EmployeeId),
     FOREIGN KEY (JobId) REFERENCES Job (JobId)
@@ -104,11 +111,20 @@ CREATE TABLE Payment
 	PaymentID INT NOT NULL  AUTO_INCREMENT,
 	PaymentType VARCHAR(100),
 	WithDrawalType VARCHAR(100),
-	Status VARCHAR(100),
-    Balance DECIMAL,
 	EmployeeId INT,
 	EmployerId INT,
 	primary key(PaymentID),
-	FOREIGN KEY (EmployeeId) REFERENCES Employee(EmployeeID),
-	FOREIGN KEY (EmployerId) REFERENCES Employer(EmployerID)
+	FOREIGN KEY (EmployeeId) REFERENCES Employee(EmployeeId),
+	FOREIGN KEY (EmployerId) REFERENCES Employer(EmployerId)
 );
+
+CREATE TABLE Charge
+(	
+	ChargeId INT NOT NULL AUTO_INCREMENT,
+	PaymentId INT NOT NULL,
+    Status VARCHAR(100),
+    Balance DECIMAL,
+	OutstandingDate DATE,
+    PRIMARY KEY(ChargeId),
+    FOREIGN KEY(PaymentId) REFERENCES Payment(PaymentId)
+    );

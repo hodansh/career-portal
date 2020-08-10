@@ -67,12 +67,26 @@ function AddEmployee($userName, $userPassword, $Email, $Telephone, $PostalCode, 
 // POST
 function AddJobPost($title, $category, $jobDescription, $neededEmployees)
 {
-    $employerId = $_SESSION['employerId'];
-    $todayDate = date("Y-m-d");
     global $conn;
+    $todayDate = date("Y-m-d");
+    $employerId = $_SESSION['employerId'];
+    $sql = "SELECT EmployerCategory.MaxJobs FROM Employer, EmployerCategory WHERE Employer.EmployerCategoryId = EmployerCategory.EmployerCategoryId AND EmployerId = $employerId";
+    
+    if ($result = $conn->query($sql)){
+        $row = $result->fetch_row();
+        $maxJobsLimit = $row[0];
+    }
+
+    if(is_array(findAllJobsForEmployer())){
+        if(isset($maxJobsLimit) && count(findAllJobsForEmployer())>=$maxJobsLimit){
+            return "Sorry! Based on your subscription, you cannot apply for more than $maxJobsLimit jobs.";
+        }
+    }
+    
     $sql = "INSERT INTO Job (Title, Category, JobDescription, DatePosted, NeededEmployees, AppliedEmployees, AcceptedOffers, EmployerId)
-    VALUES ('$title', $category, '$jobDescription', '$todayDate', $neededEmployees, 0, 0, $employerId);";
+        VALUES ('$title', $category, '$jobDescription', '$todayDate', $neededEmployees, 0, 0, $employerId);";
     $result = mysqli_query($conn, $sql);
+    return "Job Application successfully created.";
 }
 
 // DELETE
@@ -157,6 +171,17 @@ function findAllJobsForEmployer()
         return $resultArray;
     }
     return "Table is currenty empty.";
+}
+
+// POST Job Offer
+function AddJobOffer($jobId, $employeeId, $jobOfferStatus)
+{
+    $employerId = $_SESSION['employerId'];
+    $todayDate = date("Y-m-d");
+    global $conn;
+    $sql = "INSERT INTO JobOffer (EmployeeId, JobId, Status, CreationDate)
+    VALUES ($jobId, $employeeId, '$jobOfferStatus', '$todayDate');";
+    $result = mysqli_query($conn, $sql);
 }
 
 
@@ -378,6 +403,7 @@ function deactivateUser($userNameInput)
 }
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function addCategory($MembershipType,$Status,$MonthlyCharge,$MaxJobs){
     global $conn;
     $sql = "INSERT INTO $MembershipType (Status, MonthlyCharge, MaxJobs) 
