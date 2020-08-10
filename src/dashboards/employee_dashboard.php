@@ -163,8 +163,7 @@ if(isset($_POST['deleteAccount'])){
 
     if (isset($_POST["showJobs"])) {
         $_SESSION["allJobs"] = findAll("Job");
-    }
-    if (isset($_SESSION["allJobs"])) { //show all the jobs:
+     //show all the jobs:
         $res_jobs = $_SESSION["allJobs"];
 
         if (is_array($res_jobs)) {

@@ -198,7 +198,7 @@ if(isset($_POST['deleteAccount'])){
                 <form name="getJob" method="post" action="">
                     <!-- we handle the form after submission in formVerification.php -->
                     <div class="table">
-                        <div class="form-head2">Get job details by JobId :</div>
+                        <div class="form-head2">Edit a jobpost (enter JobId):</div>
                         <!--  ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
                         <?php // to show error messages about bad inputs, we would have to show them on top of the page. Error messages are created in formValidation page
                         if (!empty($GetJobErrorMessage) && is_array($GetJobErrorMessage) && isset($_POST["getJob"])) {
@@ -345,7 +345,7 @@ if(isset($_POST['deleteAccount'])){
                         <label style="font-weight:200 ;">Click to see all applications to your jobs: </label>
                     </div>
                     <div>
-                        <input type="submit" name="showJobApplications" value="Show All Job Applications" class="btnRegister">
+                        <input type="submit" name="showJobApplications" value="Show All Incoming Applications" class="btnRegister">
                     </div>
                 </form>
             </td>
