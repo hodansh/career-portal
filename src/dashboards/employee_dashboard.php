@@ -35,12 +35,15 @@ if(isset($_POST['deleteAccount'])){
             <td>
                 <div class="form-head"> Welcome <?php echo $_SESSION["userName"]; ?></div>
             <?php 
+            
             $_SESSION['AllOffers'] = findAll('JobOffer');
+            if(isset($_SESSION['AllOffers'])){
             foreach($_SESSION['AllOffers'] as $offer){
                 if ($offer['EmployeeId']==$_SESSION['employeeId'] && $offer['Status']=="Approved"){
                     echo "<div style='font-size: large; color:red;'> Congratulations! You have an accepted offer for your application to jobID=".$offer["JobId"]."</div>";
                 }
             }
+        }
             ?>
             </td>
 
