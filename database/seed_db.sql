@@ -65,9 +65,9 @@ INSERT INTO Payment
 	(AccountNumber, PaymentType, WithDrawalType, Status, Balance, EmployeeId, EmployerId)
 VALUES
 ("1111-1111-1111-1111", "Credit Card", "Automatic", "Active", 1000.0, 1, null),
-("Checking Account", "Manual" , "Frozen", 900.0, 2, null),
-("Credit Card", "Automatic", "Active", 500.0, null, 1),
-("Checking Account", "Manual", "Active", 0, null, 2);
+("1111-1111-1111-1112", "Checking Account", "Manual" , "Frozen", 900.0, 2, null),
+("1111-1111-1111-1113", "Credit Card", "Automatic", "Active", 500.0, null, 1),
+("1111-1111-1111-1114", "Checking Account", "Manual", "Active", 0, null, 2);
 
 INSERT INTO Charge
 	(PaymentId, Status,Balance,OutStandingDate)
