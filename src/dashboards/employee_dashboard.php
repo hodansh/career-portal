@@ -12,13 +12,43 @@ include_once "../database_operations.php";
 </head>
 
 <body>
-    <a href="../index.php" style="font-weight: 600;">Sign-out</a>
+    <a href="../index.php" style="font-weight: 600; font-size: large; ">Sign-out</a>
+    <br>
+    <a href="./employee_profile.php" style="font-weight: 600; font-size: large; ">Edit Profile</a>
+
+    <form name="deleteAccount" method="post" action="">
+        <div>
+            <br>
+            <label style="font-size:medium;"> Click here to permanently delete your account (this cannot be undone!)</label>
+            <br>
+            <input type='submit' style="width:auto" name='deleteAccount' value='Delete Your Account' class="btnRegister">
+        </div>
+    </form>
+    <?php
+    if (isset($_POST['deleteAccount'])) {
+        deleteUser($_SESSION['userName']);
+        echo "<script type='text/javascript'>window.location.href = '../index.php?idh={$idh}&ajax_show=experience';</script>"; //navigate to index page
+    }
+    ?>
+
     <h1>Employee Dashboard</h1>
     <table>
         <tr>
             <td>
                 <div class="form-head"> Welcome <?php echo $_SESSION["userName"]; ?></div>
+                <?php
+
+                $_SESSION['AllOffers'] = findAll('JobOffer');
+                if (isset($_SESSION['AllOffers'])) {
+                    foreach ($_SESSION['AllOffers'] as $offer) {
+                        if ($offer['EmployeeId'] == $_SESSION['employeeId'] && $offer['Status'] == "Approved") {
+                            echo "<div style='font-size: large; color:red;'> Congratulations! You have an accepted offer for your application to jobID=" . $offer["JobId"] . "</div>";
+                        }
+                    }
+                }
+                ?>
             </td>
+
             <td>
                 <form name="UpdateMembership" method="post" action="">
                     <?php
@@ -147,8 +177,7 @@ include_once "../database_operations.php";
 
     if (isset($_POST["showJobs"])) {
         $_SESSION["allJobs"] = findAll("Job");
-    }
-    if (isset($_SESSION["allJobs"])) { //show all the jobs:
+        //show all the jobs:
         $res_jobs = $_SESSION["allJobs"];
 
         if (is_array($res_jobs)) {

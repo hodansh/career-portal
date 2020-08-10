@@ -12,6 +12,6 @@ if(isset($_POST['deleteJob']))
     if ($valid) {
         $DeleteJobResult = DeleteJobPost($_POST['jobIdToDelete']);
         $DeleteJobErrorMessage[] = $DeleteJobResult;
-        unset($_POST['deleteJob']);
+        // unset($_POST['deleteJob']);
     } else { $DeleteJobErrorMessage[] = "All fields are required."; }
 }

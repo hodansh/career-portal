@@ -1,6 +1,6 @@
 <?php session_start();
-include_once "../validation/employer_validations/job_validations/post_job_validation.php"; 
-include_once "../validation/employer_validations/job_validations/post_job_offer_validation.php"; 
+include_once "../validation/employer_validations/job_validations/post_job_validation.php";
+include_once "../validation/employer_validations/job_validations/post_job_offer_validation.php";
 include_once "../validation/employer_validations/job_validations/delete_job_validation.php";
 include_once "../validation/employer_validations/job_validations/get_job_For_Employer_validation.php";
 include_once "../validation/employer_validations/job_validations/update_job_validation.php";
@@ -17,7 +17,27 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
 
 <body>
     <a href="../payments/payments.php" class="links">Payments</a>
-    <a href="../index.php" class="links">Sign Out</a>
+    <div>
+    <a href="../index.php" style="font-weight: 600; font-size: large; ">Sign-out</a>
+    <br><br>
+    <a href="./employer_profile.php" style="font-weight: 600; font-size: large; ">Edit Profile</a>
+
+    <form name="deleteAccount" method="post" action="">
+        <div>
+            <br>
+            <label style="font-size:medium;"> Click here to permanently delete your account (this cannot be undone!)</label>
+            <br>
+            <input type='submit' style="width:auto" name='deleteAccount' value='Delete Your Account' class="btnRegister">
+        </div>
+    </form>
+    <?php
+
+    if (isset($_POST['deleteAccount'])) {
+        echo deleteUser($_SESSION['userName']);
+        echo "<script type='text/javascript'>window.location.href = '../index.php?idh={$idh}&ajax_show=experience';</script>"; //navigate to index page
+    }
+    ?>
+
     <h1>Employer Dashboard</h1>
 
 
@@ -73,7 +93,7 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
             </td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td>
                 <form name="postJob" method="post" action="">
                     <!-- we handle the form after submission in formVerification.php -->
                     <div class="table">
@@ -127,7 +147,7 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
                     </div>
                 </form>
             </td>
-        <tr>
+
             <td>
                 <form name="postJobOffer" method="post" action="">
                     <!-- we handle the form after submission in formVerification.php -->
@@ -151,21 +171,21 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
                         <div class="form_column">
                             <label>Job ID</label>
                             <div>
-                                <input type="text" class="input_textbox" name="jobId" value ="<?php if (isset($_POST['jobId'])) echo $_POST['jobId']; ?>">
+                                <input type="text" class="input_textbox" name="jobId" value="<?php if (isset($_POST['jobId'])) echo $_POST['jobId']; ?>">
                             </div>
                         </div>
                         <div class="form_column">
                             <label>Employee ID</label>
                             <div>
-                                <input type="number" min="0" class="input_textbox" name="employeeId" value ="<?php if (isset($_POST['employeeId'])) echo $_POST['employeeId']; ?>">
+                                <input type="number" min="0" class="input_textbox" name="employeeId" value="<?php if (isset($_POST['employeeId'])) echo $_POST['employeeId']; ?>">
                             </div>
                         </div>
                         <div class="form_column">
                             <div>
                                 <label for="approve">Approve: </label>
-                                <input type="radio" name="jobOfferStatus" id="approve" value="Approved" required>
+                                <input type="radio" name="jobOfferStatus" value="Approved" required>
                                 <label for="reject">Reject: </label>
-                                <input type="radio" name="jobOfferStatus" id="reject" value="Rejected" required>
+                                <input type="radio" name="jobOfferStatus" value="Rejected" required>
                             </div>
                         </div>
                         <div>
@@ -176,11 +196,12 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
                     </div>
                 </form>
             </td>
+        <tr>
             <td>
                 <form name="getJob" method="post" action="">
                     <!-- we handle the form after submission in formVerification.php -->
                     <div class="table">
-                        <div class="form-head2">Get job details by JobId :</div>
+                        <div class="form-head2">Edit a jobpost (enter JobId):</div>
                         <!--  ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
                         <?php // to show error messages about bad inputs, we would have to show them on top of the page. Error messages are created in formValidation page
                         if (!empty($GetJobErrorMessage) && is_array($GetJobErrorMessage) && isset($_POST["getJob"])) {
@@ -311,10 +332,10 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
             <td>
                 <form name="showJobs" method="post" action="">
                     <div class="table">
-                        <label style="font-weight:200 ;">Click to see all your jobs: </label>
+                        <label style="font-weight:200 ;">Click to see your posted jobs: </label>
                     </div>
                     <div>
-                        <input type="submit" name="showJobs" value="Show All the Jobs" class="btnRegister">
+                        <input type="submit" name="showJobs" value="My Posted Jobs" class="btnRegister">
                     </div>
                 </form>
 
@@ -327,7 +348,7 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
                         <label style="font-weight:200 ;">Click to see all applications to your jobs: </label>
                     </div>
                     <div>
-                        <input type="submit" name="showJobApplications" value="Show All Job Applications" class="btnRegister">
+                        <input type="submit" name="showJobApplications" value="Show All Incoming Applications" class="btnRegister">
                     </div>
                 </form>
             </td>

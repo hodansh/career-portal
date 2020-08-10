@@ -15,6 +15,8 @@ if(isset($_POST["postJob"]))
 
     if ($valid) {
         $PostJobResult = AddJobPost($_POST['jobTitle'], $_POST['jobCategory'], $_POST['jobDescription'], $_POST['neededEmployees']);
-        
+        if(strpos($PostJobResult, "Sorry! Based on your subscription, you cannot post more than")!== false){
+            $PostJobErrorMessage[]=$PostJobResult;
+        }
     } else { $PostJobErrorMessage[] = "All fields are required."; }
 }
