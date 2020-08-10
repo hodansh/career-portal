@@ -17,56 +17,57 @@ include_once "../database_operations.php";
     <table>
         <tr>
             <td>
-    <div class="form-head"> Welcome <?php echo $_SESSION["userName"]; ?></div>
-</td>
-<td>
-<form name="UpdateMembership" method="post" action="">
-    <?php 
-    $userName= $_SESSION["userName"];
-    $employeeId = $_SESSION['employeeId'];
-    $employeeCategoryId= findAnEmployee($_SESSION["userName"])[8];
-    $employee_categories = findAll("EmployeeCategory");
-
-    
-    foreach ($employee_categories as $row) {
-             if ($row['EmployeeCategoryId']==$employeeCategoryId){
-                echo "<div class='form-head2'>You are now a ".$row['Status']." employee";
-             }
-            }
-           
-            echo "<br><div class='form-head3'>Upgrade/Downgrade your membership type:</div><br>";
+                <div class="form-head"> Welcome <?php echo $_SESSION["userName"]; ?></div>
+            </td>
+            <td>
+                <form name="UpdateMembership" method="post" action="">
+                    <?php
+                    $userName = $_SESSION["userName"];
+                    $employeeId = $_SESSION['employeeId'];
+                    $employeeCategoryId = findAnEmployee($_SESSION["userName"])[8];
+                    $employee_categories = findAll("EmployeeCategory");
 
 
+                    foreach ($employee_categories as $row) {
+                        if ($row['EmployeeCategoryId'] == $employeeCategoryId) {
+                            echo "<div class='form-head2'>You are now a " . $row['Status'] . " employee</div>";
+                        }
+                    }
+
+                    echo "<div class='form-head3'>Upgrade/Downgrade your membership type:</div><br>";
 
 
 
-            echo "<select name='newMembershipType'>";
-            
-            foreach ($employee_categories as $row) {
-                if($row['MaxJobs']==null){
-                    $row['MaxJobs']= "unlimited";
-                  }    
 
-                echo "<option value='employee_" . $row['EmployeeCategoryId'] . "'>Employee " . $row['Status'] . " Membership (" . $row['MaxJobs'] . " job posts/month for $" . $row['MonthlyCharge'] . ")</option>";
-                }
-    
-    ?>
-  <div>
+
+                    echo "<select name='newMembershipType'>";
+
+                    foreach ($employee_categories as $row) {
+                        if ($row['MaxJobs'] == null) {
+                            $row['MaxJobs'] = "unlimited";
+                        }
+                        if ($row['EmployeeCategoryId'] !== $employeeCategoryId) {
+                            echo "<option value='employee_" . $row['EmployeeCategoryId'] . "'>Employee " . $row['Status'] . " Membership (" . $row['MaxJobs'] . " job applications/month for $" . $row['MonthlyCharge'] . ")</option>";
+                        }
+                    }
+
+                    ?>
+                    <div>
                         <input type="submit" name="UpdateMembership" value="Update Membership" class="btnRegister">
                     </div>
                 </form>
-                <?php 
-                if(isset ($_POST["newMembershipType"])){
-                     $categoryId =trim($_POST['newMembershipType'],"employee_");
-                                    }
+                <?php
+                if (isset($_POST["newMembershipType"])) {
+                    $categoryId = trim($_POST['newMembershipType'], "employee_");
+                }
                 $sql = "UPDATE Employee SET EmployeeCategoryId = $categoryId WHERE UserName= '$userName';";
                 mysqli_query($conn, $sql);
                 ?>
-    </td>   
-    </tr>
-    
-    <br>
-    
+            </td>
+        </tr>
+
+        <br>
+
         <tr>
             <td>
                 <form name="showJobs" method="post" action="">
