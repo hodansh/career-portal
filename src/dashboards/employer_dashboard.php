@@ -1,6 +1,6 @@
 <?php session_start();
-include_once "../validation/employer_validations/job_validations/post_job_validation.php"; 
-include_once "../validation/employer_validations/job_validations/post_job_offer_validation.php"; 
+include_once "../validation/employer_validations/job_validations/post_job_validation.php";
+include_once "../validation/employer_validations/job_validations/post_job_offer_validation.php";
 include_once "../validation/employer_validations/job_validations/delete_job_validation.php";
 include_once "../validation/employer_validations/job_validations/get_job_For_Employer_validation.php";
 include_once "../validation/employer_validations/job_validations/update_job_validation.php";
@@ -16,24 +16,27 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
 </head>
 
 <body>
-<a href="../payments/payments.php" class="links">Payments</a>
-<a href="../index.php" style="font-weight: 600; font-size: large; ">Sign-out</a>
-    
-    <form name="deleteAccount" method="post" action="">
+    <a href="../payments/payments.php" class="links">Payments</a>
     <div>
-    <br>
-    <label style="font-size:medium;"> Click here to permanently delete your account (this cannot be undone!)</label>    
-    <br>
-    <input type='submit' style="width:auto" name='deleteAccount' value = 'Delete Your Account' class="btnRegister">
-    </div>
-</form>
-<?php
+    <a href="../index.php" style="font-weight: 600; font-size: large; ">Sign-out</a>
+    <br><br>
+    <a href="./employer_profile.php" style="font-weight: 600; font-size: large; ">Edit Profile</a>
 
-if(isset($_POST['deleteAccount'])){
-    echo deleteUser($_SESSION['userName']);
-    echo "<script type='text/javascript'>window.location.href = '../index.php?idh={$idh}&ajax_show=experience';</script>"; //navigate to index page
-}
-?>
+    <form name="deleteAccount" method="post" action="">
+        <div>
+            <br>
+            <label style="font-size:medium;"> Click here to permanently delete your account (this cannot be undone!)</label>
+            <br>
+            <input type='submit' style="width:auto" name='deleteAccount' value='Delete Your Account' class="btnRegister">
+        </div>
+    </form>
+    <?php
+
+    if (isset($_POST['deleteAccount'])) {
+        echo deleteUser($_SESSION['userName']);
+        echo "<script type='text/javascript'>window.location.href = '../index.php?idh={$idh}&ajax_show=experience';</script>"; //navigate to index page
+    }
+    ?>
 
     <h1>Employer Dashboard</h1>
 
@@ -144,7 +147,7 @@ if(isset($_POST['deleteAccount'])){
                     </div>
                 </form>
             </td>
-        
+
             <td>
                 <form name="postJobOffer" method="post" action="">
                     <!-- we handle the form after submission in formVerification.php -->
@@ -168,13 +171,13 @@ if(isset($_POST['deleteAccount'])){
                         <div class="form_column">
                             <label>Job ID</label>
                             <div>
-                                <input type="text" class="input_textbox" name="jobId" value ="<?php if (isset($_POST['jobId'])) echo $_POST['jobId']; ?>">
+                                <input type="text" class="input_textbox" name="jobId" value="<?php if (isset($_POST['jobId'])) echo $_POST['jobId']; ?>">
                             </div>
                         </div>
                         <div class="form_column">
                             <label>Employee ID</label>
                             <div>
-                                <input type="number" min="0" class="input_textbox" name="employeeId" value ="<?php if (isset($_POST['employeeId'])) echo $_POST['employeeId']; ?>">
+                                <input type="number" min="0" class="input_textbox" name="employeeId" value="<?php if (isset($_POST['employeeId'])) echo $_POST['employeeId']; ?>">
                             </div>
                         </div>
                         <div class="form_column">
@@ -193,7 +196,7 @@ if(isset($_POST['deleteAccount'])){
                     </div>
                 </form>
             </td>
-            <tr>
+        <tr>
             <td>
                 <form name="getJob" method="post" action="">
                     <!-- we handle the form after submission in formVerification.php -->
