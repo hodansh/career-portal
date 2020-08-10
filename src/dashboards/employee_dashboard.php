@@ -12,7 +12,23 @@ include_once "../database_operations.php";
 </head>
 
 <body>
-    <a href="../index.php" style="font-weight: 600;">Sign-out</a>
+    <a href="../index.php" style="font-weight: 600; font-size: large; ">Sign-out</a>
+    
+    <form name="deleteAccount" method="post" action="">
+    <div>
+    <br>
+    <label style="font-size:medium;"> Click here to permanently delete your account (this cannot be undone!)</label>    
+    <br>
+    <input type='submit' style="width:auto" name='deleteAccount' value = 'Delete Your Account' class="btnRegister">
+    </div>
+</form>
+<?php
+if(isset($_POST['deleteAccount'])){
+    deleteUser($_SESSION['userName']);
+    echo "<script type='text/javascript'>window.location.href = '../index.php?idh={$idh}&ajax_show=experience';</script>"; //navigate to index page
+}
+?>
+
     <h1>Employee Dashboard</h1>
     <table>
         <tr>

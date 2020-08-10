@@ -16,7 +16,24 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
 </head>
 
 <body>
-    <a href="../index.php" style="font-weight: 600;">Sign-out</a>
+<a href="../index.php" style="font-weight: 600; font-size: large; ">Sign-out</a>
+    
+    <form name="deleteAccount" method="post" action="">
+    <div>
+    <br>
+    <label style="font-size:medium;"> Click here to permanently delete your account (this cannot be undone!)</label>    
+    <br>
+    <input type='submit' style="width:auto" name='deleteAccount' value = 'Delete Your Account' class="btnRegister">
+    </div>
+</form>
+<?php
+
+if(isset($_POST['deleteAccount'])){
+    echo deleteUser($_SESSION['userName']);
+    echo "<script type='text/javascript'>window.location.href = '../index.php?idh={$idh}&ajax_show=experience';</script>"; //navigate to index page
+}
+?>
+
     <h1>Employer Dashboard</h1>
 
 
@@ -311,10 +328,10 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
             <td>
                 <form name="showJobs" method="post" action="">
                     <div class="table">
-                        <label style="font-weight:200 ;">Click to see all your jobs: </label>
+                        <label style="font-weight:200 ;">Click to see your posted jobs: </label>
                     </div>
                     <div>
-                        <input type="submit" name="showJobs" value="Show All the Jobs" class="btnRegister">
+                        <input type="submit" name="showJobs" value="My Posted Jobs" class="btnRegister">
                     </div>
                 </form>
 
