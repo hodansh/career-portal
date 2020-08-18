@@ -444,6 +444,39 @@ function findAllPaymentMethods()
     return "Table is currenty empty.";
 }
 
+// GET for specific employer
+function getPaymentForEmployer($id)
+{
+    $employerId = $_SESSION['employerId'];
+    $sql = "SELECT * FROM Payment WHERE PaymentId = $id AND EmployerId = $employerId";
+    global $conn;
+    if ($result = $conn->query($sql)) {
+        if (mysqli_num_rows($result) > 0) { // if JobId was matched
+            $row = $result->fetch_row(); // this will get one full row of database for Job where JobId matched
+            $result->free_result(); // This will free the memory that was dedicated to preserve the result of the query
+            return $row;
+        }
+    }
+    return null;
+}
+
+function deletePaymentMethod($id)
+{
+    global $conn;
+    $message = "You do not have a job with the given id, pick one from the table.";
+
+    $jobFound = getPaymentForEmployer($id);
+
+    if (!is_null($jobFound)) {
+        $sql = "Delete FROM Payment WHERE PaymentId=$id;";
+        if ($result = $conn->query($sql)) {
+            $message = "Payment successfully deleted.";
+        }
+    }
+
+    return $message;
+}
+
 function connection_close($conn) // This can be used to close the connection, not the best approach! so we will have to figure out about the best way of doing it.
 {
     $conn->close();

@@ -2,6 +2,7 @@
 include_once "../validation/employer_validations/job_validations/post_job_validation.php"; 
 include_once "../validation/employer_validations/job_validations/post_job_offer_validation.php"; 
 include_once "../validation/employer_validations/payment_validations/payment_validation.php"; 
+include_once "../validation/employer_validations/payment_validations/delete_payment_validation.php"; 
 include_once "../validation/employer_validations/job_validations/delete_job_validation.php";
 include_once "../validation/employer_validations/job_validations/get_job_For_Employer_validation.php";
 include_once "../validation/employer_validations/job_validations/update_job_validation.php";
@@ -180,12 +181,12 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
         </tr>
         <tr>
             <td>
-                <form name="deleteJob" method="post" action="">
+                <form name="deletePayment" method="post" action="">
                     <div class="table">
-                    <label style="font-weight:200 ;">Enter the id of the payment to delete :</label>
+                    <label style="font-weight:200 ;">Enter the id of the payment to delete:</label>
                     <!--  ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
                     <?php // to show error messages about bad inputs, we would have to show them on top of the page. Error messages are created in formValidation page
-                        if (!empty($DeleteJobErrorMessage) && is_array($DeleteJobErrorMessage) && isset($_POST["jobIdToDelete"])) {
+                        if (!empty($DeleteJobErrorMessage) && is_array($DeleteJobErrorMessage) && isset($_POST["paymentIdToDelete"])) {
                         ?>
                             <div class="error-message">
                                 <?php
@@ -199,10 +200,10 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
                         ?>
                         <!--  ----------------------------------------------------------------------------------------------------------------------------------------------------------- -->
                     <div>
-                        <input type="number" min="0" class="input_textbox" name="jobIdToDelete" value="<?php if (isset($_POST['jobIdToDelete'])) echo $_POST['jobIdToDelete']; ?>">
+                        <input type="number" min="0" class="input_textbox" name="paymentIdToDelete" value="<?php if (isset($_POST['paymentIdToDelete'])) echo $_POST['paymentIdToDelete']; ?>">
                     </div>
                     <div>
-                        <input type="submit" name="deleteJob" value="Delete" class="btnRegister">
+                        <input type="submit" name="deletePayment" value="Delete" class="btnRegister">
                     </div>
                 </form>
             </td>    
@@ -237,6 +238,8 @@ include_once "../validation/employer_validations/job_validations/update_job_vali
         <td>Withdrawal Type</td>
         <td>Status</td>
         <td>Balance</td>
+        <td>Employee ID</td>
+        <td>Employer ID</td>
         </tr>";
             foreach ($res_jobs as $row) {
                 foreach ($row as $key => $value) {

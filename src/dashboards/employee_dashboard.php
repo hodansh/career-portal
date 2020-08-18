@@ -12,6 +12,8 @@ include_once "../database_operations.php";
 </head>
 
 <body>
+    <a href="../payments/payments.php" style="font-weight: 600; font-size: large;">Payments</a>
+    <div>
     <a href="../index.php" style="font-weight: 600; font-size: large; ">Sign-out</a>
     <br>
     <a href="./employee_profile.php" style="font-weight: 600; font-size: large; ">Edit Profile</a>
